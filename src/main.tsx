@@ -7,14 +7,17 @@ import { BrowserRouter } from 'react-router-dom'
 // Context Provider
 import { ProjectContextProvider } from './contexts/ProjectContext.tsx'
 import { ProjectFormContextProvider } from './contexts/ProjectFormContext.tsx'
+import { TaskContextProvider } from './contexts/TaskContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <ProjectContextProvider>
-        <ProjectFormContextProvider>
-          <App />
-        </ProjectFormContextProvider>
+        <TaskContextProvider>
+          <ProjectFormContextProvider>
+            <App />
+          </ProjectFormContextProvider>
+        </TaskContextProvider>
       </ProjectContextProvider>
     </BrowserRouter>
   </React.StrictMode>,
