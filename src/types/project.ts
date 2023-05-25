@@ -8,7 +8,9 @@ export type ProjectType = {
 
 export type ProjectContextType = {
  projects:ProjectType[],
- dispatch:any
+ dispatch:any,
+ activeProject: string,
+ setActiveProject: React.Dispatch<React.SetStateAction<string>>
 }
 
 
