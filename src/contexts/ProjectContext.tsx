@@ -1,7 +1,7 @@
 import { useReducer, createContext } from 'react';
 
 // Types
-import { ProjectAction, ProjectContextType, ProjectContextProviderProps } from '../types/project';
+import { ProjectType,ProjectAction, ProjectContextType, ProjectContextProviderProps } from '../types/project';
 
 export const ProjectContext = createContext ({} as ProjectContextType)
 
@@ -10,6 +10,11 @@ export const projectsReducer = (state:any, action:ProjectAction) => {
 		case 'SET_PROJECTS':
 			return{
 				projects:action.payload
+			}
+
+		case 'DELETE_PROJECT':
+			return{
+				projects: state.projects.filter((project:ProjectType) => project._id !== action.payload._id)
 			}
 		
 		default:
