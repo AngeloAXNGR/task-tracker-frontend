@@ -1,15 +1,17 @@
 import { BsFillTrash3Fill } from 'react-icons/bs';
+import { MdModeEditOutline } from 'react-icons/md';
 
 // Types
 import { ProjectType } from "../types/project"
 
 // Hooks
 import { useProjectContext } from '../hooks/useProjectContext';
+import { useProjectFormContext } from '../hooks/useProjectFormContext';
 
 const Project = ({_id, title, createdAt, updatedAt}: ProjectType) => {
-
 	const {dispatch} = useProjectContext();
 
+	const {toggleEditProjectForm} = useProjectFormContext()
 
 	const deleteProject = async() => {
 		const response = await fetch(`http://localhost:4000/api/projects/${_id}`, {
@@ -26,7 +28,10 @@ const Project = ({_id, title, createdAt, updatedAt}: ProjectType) => {
 	return (
 		<div className="flex px-[10px] py-[5px] rounded-md text-white bg-slate-700 hover:bg-slate-600 cursor-pointer items-center justify-between">
 			<h2>{title}</h2>
-			<BsFillTrash3Fill onClick={deleteProject}/>
+			<div className="flex items-center gap-[10px]">
+				<MdModeEditOutline onClick={(e:React.MouseEvent<any>) => toggleEditProjectForm(e, _id, title)}/>
+				<BsFillTrash3Fill onClick={deleteProject}/>
+			</div>
 		</div>
 	)
 }

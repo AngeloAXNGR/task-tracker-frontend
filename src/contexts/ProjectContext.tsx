@@ -1,7 +1,7 @@
-import { useReducer, createContext } from 'react';
+import { useReducer, createContext, useState } from 'react';
 
 // Types
-import { ProjectType,ProjectAction, ProjectContextType, ProjectContextProviderProps } from '../types/project';
+import { ProjectType, ProjectContextType, ProjectContextProviderProps, ProjectAction} from '../types/project';
 
 export const ProjectContext = createContext ({} as ProjectContextType)
 
@@ -15,6 +15,11 @@ export const projectsReducer = (state:any, action:ProjectAction) => {
 		case 'CREATE_PROJECT':
 			return{
 				projects: [action.payload, ...state.projects]
+			}
+
+		case 'UPDATE_PROJECT':
+			return{
+				projects:[action.payload, ...state.projects.filter((project:ProjectType) => project._id !== action.payload._id)]
 			}
 
 		case 'DELETE_PROJECT':
@@ -32,8 +37,10 @@ export const ProjectContextProvider = (({children}: ProjectContextProviderProps)
 		projects: null
 	})
 
+	const [activeProject, setActiveProject] = useState('')
+
 	return(
-	<ProjectContext.Provider value={{...state, dispatch}}>		
+	<ProjectContext.Provider value={{...state, dispatch, activeProject, setActiveProject}}>		
 		{children}
 	</ProjectContext.Provider>
 	)
