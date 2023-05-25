@@ -1,8 +1,14 @@
-
+// Components
+import Sidebar from "../components/Sidebar"
 
 const Home = () => {
 	return (
-		<div>Home</div>
+		<div className="flex justify-between">
+			<Sidebar/>
+			<div>
+				Task Bar Goes Here
+			</div>
+		</div>
 	)
 }
 
