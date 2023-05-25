@@ -6,12 +6,15 @@ import { BrowserRouter } from 'react-router-dom'
 
 // Context Provider
 import { ProjectContextProvider } from './contexts/ProjectContext.tsx'
+import { ProjectFormContextProvider } from './contexts/ProjectFormContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <ProjectContextProvider>
-        <App />
+        <ProjectFormContextProvider>
+          <App />
+        </ProjectFormContextProvider>
       </ProjectContextProvider>
     </BrowserRouter>
   </React.StrictMode>,
