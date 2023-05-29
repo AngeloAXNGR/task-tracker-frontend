@@ -24,7 +24,7 @@ const EditProjectForm = () => {
 	}
 	
 	return (
-		<div className="w-full h-screen">
+		<div>
 			<div className="bg-black opacity-70 w-full h-screen fixed top-0 left-0 z-0" onClick={(e) => toggleEditProjectForm(e, '', '')}></div>
 			<form action="" className="bg-white absolute mx-auto left-0 right-0 max-w-[320px] flex flex-col p-[30px] rounded-lg gap-[20px]">
 				<h1>{activeProject}</h1>

@@ -22,6 +22,7 @@ const Home = () => {
 
 	useEffect(() =>{
 		const fetchTasks = async() => {
+			console.log('Fetching Tasks . . . (useEffect @ Home.tsx)')
 			const response = await fetch(`http://localhost:4000/api/projects/${activeProject}/tasks`);
 			const json = await response.json();
 
@@ -39,7 +40,7 @@ const Home = () => {
 			<Sidebar/>
 			{addProjectFormState && <AddProjectForm/>}
 			{editProjectFormState && <EditProjectForm/>}
-			<div className="flex flex-col w-[100%] gap-[20px] items-center">
+			<div className="w-0 sm:w-[100%]">
 				{tasks && tasks.map((task:TaskType) => {
 					return(
 						<Task

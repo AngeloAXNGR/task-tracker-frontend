@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
 
+// React Icons
+import { MdAddCircleOutline } from 'react-icons/md';
+
 // Types
 import { ProjectType } from '../types/project';
 
@@ -16,6 +19,7 @@ const Sidebar = () => {
 
 	useEffect(() =>{
 		const fetchProjects = async() => {
+			console.log('Fetching Projects . . . (useEffect @ Sidebar.tsx)')
 			const response = await fetch(`http://localhost:4000/api/projects`);
 			const json = await response.json();
 
@@ -29,11 +33,12 @@ const Sidebar = () => {
 	},[dispatch])
 
 	return (
-		<div className="bg-slate-950 py-[10px] px-[20px] h-screen w-[320px] max-w-[100%]">
-			<h1 className="text-white font-bold text-3xl mb-[20px]">Projects</h1>
-
+		<div className="bg-slate-900 w-[100%] h-[calc(100vh-56px)] px-[20px] py-[10px] sm:w-[320px] sm:max-w-[100%]">
+			<div className="flex items-center mb-[20px] justify-between">
+				<h1 className="text-white font-bold text-3xl">Projects</h1>
+				<MdAddCircleOutline className="text-white cursor-pointer" size={30} onClick={(e:any) => toggleAddProjectForm(e)}/>
+			</div>
 			<div className="flex flex-col gap-[20px]">
-				<button className="px-[10px] py-[5px] rounded-md text-white bg-slate-700 hover:bg-slate-600 cursor-pointer items-center justify-between" onClick={(e) => toggleAddProjectForm(e)}>Add Project</button>
 				{projects &&
 					projects.map((project:ProjectType) => {
 						return(
