@@ -6,12 +6,12 @@ import { ProjectType } from "../types/project"
 
 // Hooks
 import { useProjectContext } from '../hooks/useProjectContext';
-import { useProjectFormContext } from '../hooks/useProjectFormContext';
+import { useFormContext } from '../hooks/useFormContext';
 
 const Project = ({_id, title, createdAt, updatedAt}: ProjectType) => {
 	const {dispatch, setActiveProject} = useProjectContext();
 
-	const {toggleEditProjectForm} = useProjectFormContext()
+	const {toggleEditProjectForm} = useFormContext()
 
 	const deleteProject = async() => {
 		const response = await fetch(`http://localhost:4000/api/projects/${_id}`, {

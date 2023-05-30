@@ -3,7 +3,7 @@ import { createContext, useState } from 'react';
 // Hooks
 import { useProjectContext } from '../hooks/useProjectContext';
 
-type ProjectFormContextType = {
+type FormContextType = {
 	addProjectFormState: boolean;
 	editProjectFormState: boolean;
 	title:string
@@ -12,13 +12,13 @@ type ProjectFormContextType = {
 	toggleEditProjectForm: (e:React.MouseEvent<any>, _id:string, title:string) => void
 }
 
-type ProjectFormContextProviderProps = {
+type FormContextProviderProps = {
 	children:React.ReactNode;
 }
 
-export const ProjectFormContext = createContext({} as ProjectFormContextType)
+export const FormContext = createContext({} as FormContextType)
 
-export const ProjectFormContextProvider = (({children}:ProjectFormContextProviderProps) => {
+export const FormContextProvider = (({children}:FormContextProviderProps) => {
 	const [addProjectFormState, setAddProjectFormState] = useState(false);
 	const [editProjectFormState, setEditProjectFormState] = useState(false);
 	const [title, setTitle] = useState('')
@@ -38,8 +38,8 @@ export const ProjectFormContextProvider = (({children}:ProjectFormContextProvide
 	}
 
 	return(
-		<ProjectFormContext.Provider value={{addProjectFormState, toggleAddProjectForm, title, setTitle, editProjectFormState, toggleEditProjectForm}}>
+		<FormContext.Provider value={{addProjectFormState, toggleAddProjectForm, title, setTitle, editProjectFormState, toggleEditProjectForm}}>
 			{children}
-		</ProjectFormContext.Provider>
+		</FormContext.Provider>
 	)
 })

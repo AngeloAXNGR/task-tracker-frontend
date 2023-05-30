@@ -8,14 +8,14 @@ import { ProjectType } from '../types/project';
 
 // Custom Hooks
 import { useProjectContext } from '../hooks/useProjectContext';
-import { useProjectFormContext } from '../hooks/useProjectFormContext';
+import { useFormContext } from '../hooks/useFormContext';
 
 // Components
 import Project from './Project';
 
 const Sidebar = () => {
 	const {projects, dispatch} = useProjectContext();
-	const {toggleAddProjectForm} = useProjectFormContext();
+	const {toggleAddProjectForm} = useFormContext();
 
 	useEffect(() =>{
 		const fetchProjects = async() => {

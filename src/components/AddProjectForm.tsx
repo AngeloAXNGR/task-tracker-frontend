@@ -1,8 +1,8 @@
-import { useProjectFormContext } from "../hooks/useProjectFormContext";
+import { useFormContext } from "../hooks/useFormContext";
 import { useProjectContext } from "../hooks/useProjectContext";
 
 const AddProjectForm = () => {
-	const {toggleAddProjectForm, title, setTitle} = useProjectFormContext();
+	const {toggleAddProjectForm, title, setTitle} = useFormContext();
 	const {dispatch} = useProjectContext();
 
 	const createProject = async(e:React.MouseEvent<HTMLButtonElement>) => {

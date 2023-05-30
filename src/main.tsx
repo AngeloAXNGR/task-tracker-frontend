@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 // Context Provider
 import { ProjectContextProvider } from './contexts/ProjectContext.tsx'
-import { ProjectFormContextProvider } from './contexts/ProjectFormContext.tsx'
+import { FormContextProvider } from './contexts/FormContext.tsx'
 import { TaskContextProvider } from './contexts/TaskContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -14,9 +14,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <BrowserRouter>
       <ProjectContextProvider>
         <TaskContextProvider>
-          <ProjectFormContextProvider>
+          <FormContextProvider>
             <App />
-          </ProjectFormContextProvider>
+          </FormContextProvider>
         </TaskContextProvider>
       </ProjectContextProvider>
     </BrowserRouter>

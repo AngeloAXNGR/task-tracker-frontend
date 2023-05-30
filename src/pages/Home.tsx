@@ -8,7 +8,7 @@ import EditProjectForm from "../components/EditProjectForm"
 import Task from '../components/Task';
 
 // Custom Hooks
-import { useProjectFormContext } from "../hooks/useProjectFormContext"
+import { useFormContext } from "../hooks/useFormContext"
 import { useProjectContext } from "../hooks/useProjectContext"
 import { useTaskContext } from '../hooks/useTaskContext';
 
@@ -16,7 +16,7 @@ import { useTaskContext } from '../hooks/useTaskContext';
 import { TaskType } from '../types/task';
 
 const Home = () => {
-	const {addProjectFormState, editProjectFormState} = useProjectFormContext();
+	const {addProjectFormState, editProjectFormState} = useFormContext();
 	const{activeProject} = useProjectContext();
 	const {tasks,dispatch} = useTaskContext();
 

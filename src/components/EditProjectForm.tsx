@@ -1,8 +1,8 @@
-import { useProjectFormContext } from "../hooks/useProjectFormContext";
+import { useFormContext } from "../hooks/useFormContext";
 import { useProjectContext } from "../hooks/useProjectContext";
 
 const EditProjectForm = () => {
-	const {toggleEditProjectForm, title, setTitle} = useProjectFormContext();
+	const {toggleEditProjectForm, title, setTitle} = useFormContext();
 	const {dispatch, activeProject} = useProjectContext();
 
 
