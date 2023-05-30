@@ -6,6 +6,7 @@ import Sidebar from "../components/Sidebar"
 import AddProjectForm from "../components/AddProjectForm"
 import EditProjectForm from "../components/EditProjectForm"
 import Task from '../components/Task';
+import AddTaskForm from '../components/AddTaskForm';
 
 // Custom Hooks
 import { useFormContext } from "../hooks/useFormContext"
@@ -16,7 +17,7 @@ import { useTaskContext } from '../hooks/useTaskContext';
 import { TaskType } from '../types/task';
 
 const Home = () => {
-	const {addProjectFormState, editProjectFormState} = useFormContext();
+	const {addProjectFormState, editProjectFormState, addTaskFormState, toggleAddTaskForm} = useFormContext();
 	const{activeProject} = useProjectContext();
 	const {tasks,dispatch} = useTaskContext();
 
@@ -40,7 +41,14 @@ const Home = () => {
 			<Sidebar/>
 			{addProjectFormState && <AddProjectForm/>}
 			{editProjectFormState && <EditProjectForm/>}
-			<div className="w-0 sm:w-[100%]">
+
+			{addTaskFormState && <AddTaskForm/>}
+
+			<div className="w-0 sm:w-[100%] flex flex-col items-center gap-[20px] pt-[20px]">
+				{tasks && 
+					<button className="text-white font-bold bg-green-700 px-[20px] py-[5px] rounded-md" onClick={(e) => toggleAddTaskForm(e)}>Add Task</button>
+				}
+
 				{tasks && tasks.map((task:TaskType) => {
 					return(
 						<Task
