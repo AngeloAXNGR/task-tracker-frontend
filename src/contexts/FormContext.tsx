@@ -16,12 +16,16 @@ type TaskForm = {
 type FormContextType = {
 	addProjectFormState: boolean;
 	editProjectFormState: boolean;
+	addTaskFormState:boolean;
 	projectForm:ProjectForm;
+	taskForm:TaskForm;
 	setProjectForm: React.Dispatch<React.SetStateAction<any>>
+	setTaskForm: React.Dispatch<React.SetStateAction<any>>
 	handleProjectForm: (event:React.ChangeEvent<any>) => void
+	handleTaskForm: (event:React.ChangeEvent<any>) => void
 	toggleAddProjectForm: (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void
 	toggleEditProjectForm: (e:React.MouseEvent<any>, _id:string, title:string) => void
-	// toggleAddTaskForm: (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void
+	toggleAddTaskForm: (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void
 }
 
 type FormContextProviderProps = {
@@ -35,6 +39,9 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 	const [editProjectFormState, setEditProjectFormState] = useState(false);
 	const [projectForm, setProjectForm] = useState({title:''})
 	const {activeProject, setActiveProject} = useProjectContext()
+
+	const [addTaskFormState, setAddTaskFormState] = useState(false);
+	const [taskForm, setTaskForm] = useState({title:'', dueDate:'', priority:'P1'})
 
 	const toggleAddProjectForm = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
 		e.preventDefault();
@@ -59,8 +66,40 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 	}
 
 
+	const toggleAddTaskForm = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
+		e.preventDefault();
+		setAddTaskFormState(prevState => {return !prevState})
+	}
+
+	const handleTaskForm = (event:React.ChangeEvent<any>) => {
+		const {name, value} = event.target
+		setTaskForm((prevData:any) => {
+			return {...prevData,
+				[name]:value
+			}
+		})
+	}
+
 	return(
-		<FormContext.Provider value={{addProjectFormState, toggleAddProjectForm, projectForm, handleProjectForm, setProjectForm, editProjectFormState, toggleEditProjectForm}}>
+		<FormContext.Provider 
+			value={
+				{
+					projectForm, 
+					addProjectFormState, 
+					toggleAddProjectForm, 
+					handleProjectForm, 
+					setProjectForm, 
+					editProjectFormState, 
+					toggleEditProjectForm, 
+
+
+					taskForm,
+					addTaskFormState, 
+					toggleAddTaskForm,
+					handleTaskForm,
+					setTaskForm,
+					}
+				}>
 			{children}
 		</FormContext.Provider>
 	)
