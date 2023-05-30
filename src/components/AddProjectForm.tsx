@@ -2,11 +2,12 @@ import { useFormContext } from "../hooks/useFormContext";
 import { useProjectContext } from "../hooks/useProjectContext";
 
 const AddProjectForm = () => {
-	const {toggleAddProjectForm, title, setTitle} = useFormContext();
+	const {toggleAddProjectForm, projectForm, handleProjectForm, setProjectForm} = useFormContext();
 	const {dispatch} = useProjectContext();
 
 	const createProject = async(e:React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
+		const title = projectForm.title
 		const response = await fetch(`http://localhost:4000/api/projects`, {
 			method:'POST',
 			headers:{'Content-type': 'application/json'},
@@ -19,7 +20,7 @@ const AddProjectForm = () => {
 			// Update Global State for Project
 			dispatch({type:'CREATE_PROJECT', payload:json});
 			toggleAddProjectForm(e);
-			setTitle('');
+			setProjectForm({title:''})
 		}
 	}
 	
@@ -34,8 +35,8 @@ const AddProjectForm = () => {
 					type="text" 
 					id="title"
 					name="title"
-					value={title}
-					onChange={(e) => setTitle(e.target.value)}
+					value={projectForm.title}
+					onChange={(e) => handleProjectForm(e)}
 				/>
 				<div className="flex items-center gap-[20px]">
 					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-green-600 w-[100%] hover:bg-green-500" onClick={(e) => createProject(e)}>Add Project</button>

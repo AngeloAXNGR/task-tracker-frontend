@@ -2,12 +2,13 @@ import { useFormContext } from "../hooks/useFormContext";
 import { useProjectContext } from "../hooks/useProjectContext";
 
 const EditProjectForm = () => {
-	const {toggleEditProjectForm, title, setTitle} = useFormContext();
+	const {toggleEditProjectForm, projectForm, setProjectForm, handleProjectForm} = useFormContext();
 	const {dispatch, activeProject} = useProjectContext();
 
 
 	const updateProject = async(e:React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
+		const title = projectForm.title
 		const response = await fetch(`http://localhost:4000/api/projects/${activeProject}`, {
 			method:'PATCH',
 			headers:{'Content-type': 'application/json'},
@@ -19,7 +20,7 @@ const EditProjectForm = () => {
 		if(response.ok){
 			dispatch({type:'UPDATE_PROJECT', payload:{...json, title:title}});
 			toggleEditProjectForm(e, '', '');
-			setTitle('');
+			setProjectForm({title:''})
 		}
 	}
 	
@@ -35,8 +36,8 @@ const EditProjectForm = () => {
 					type="text" 
 					id="title"
 					name="title"
-					value={title}
-					onChange={(e) => setTitle(e.target.value)}
+					value={projectForm.title}
+					onChange={(e) => handleProjectForm(e)}
 				/>
 				<div className="flex items-center gap-[20px]">
 					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-green-600 w-[100%] hover:bg-green-500" onClick={(e) => {updateProject(e)}}>Update</button>
