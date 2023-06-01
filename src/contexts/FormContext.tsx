@@ -2,6 +2,7 @@ import { createContext, useState } from 'react';
 
 // Hooks
 import { useProjectContext } from '../hooks/useProjectContext';
+import { useTaskContext } from '../hooks/useTaskContext';
 
 type ProjectForm = {
 	title:string
@@ -17,6 +18,7 @@ type FormContextType = {
 	addProjectFormState: boolean;
 	editProjectFormState: boolean;
 	addTaskFormState:boolean;
+	editTaskFormState:boolean;
 	projectForm:ProjectForm;
 	taskForm:TaskForm;
 	setProjectForm: React.Dispatch<React.SetStateAction<any>>
@@ -26,6 +28,7 @@ type FormContextType = {
 	toggleAddProjectForm: (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void
 	toggleEditProjectForm: (e:React.MouseEvent<any>, _id:string, title:string) => void
 	toggleAddTaskForm: (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void
+	toggleEditTaskForm: (e:React.MouseEvent<any>, _id:string, title:string, dueDate:string, priority:string) => void
 }
 
 type FormContextProviderProps = {
@@ -41,7 +44,9 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 	const {activeProject, setActiveProject} = useProjectContext()
 
 	const [addTaskFormState, setAddTaskFormState] = useState(false);
+	const [editTaskFormState, setEditTaskFormState] = useState(false);
 	const [taskForm, setTaskForm] = useState({title:'', dueDate:'', priority:'P1'})
+	const {activeTask, setActiveTask} = useTaskContext()
 
 	const toggleAddProjectForm = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
 		e.preventDefault();
@@ -71,6 +76,13 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 		setAddTaskFormState(prevState => {return !prevState})
 	}
 
+	const toggleEditTaskForm = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>, _id:string, title:string, dueDate:string, priority:string) => {
+		e.preventDefault();
+		setActiveTask(_id);
+		setEditTaskFormState(prevState => {return !prevState});
+		setTaskForm({title:title, dueDate:dueDate, priority:priority})
+	}
+
 	const handleTaskForm = (event:React.ChangeEvent<any>) => {
 		const {name, value} = event.target
 		setTaskForm((prevData:any) => {
@@ -98,6 +110,8 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 					toggleAddTaskForm,
 					handleTaskForm,
 					setTaskForm,
+					editTaskFormState,
+					toggleEditTaskForm
 					}
 				}>
 			{children}
