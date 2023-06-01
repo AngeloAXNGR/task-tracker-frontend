@@ -10,6 +10,8 @@ export type TaskType = {
 export type TaskContextType = {
 	tasks: TaskType[],
 	dispatch:any,
+	activeTask: string,
+	setActiveTask: React.Dispatch<React.SetStateAction<string>>
  }
  
  export type TaskContextProviderProps = {
