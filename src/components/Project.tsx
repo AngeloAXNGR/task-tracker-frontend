@@ -13,7 +13,8 @@ const Project = ({_id, title, createdAt, updatedAt}: ProjectType) => {
 
 	const {toggleEditProjectForm} = useFormContext()
 
-	const deleteProject = async() => {
+	const deleteProject = async(e:React.MouseEvent<HTMLOrSVGElement>) => {
+		e.stopPropagation();
 		const response = await fetch(`http://localhost:4000/api/projects/${_id}`, {
 			method:'DELETE'
 		}) 
@@ -30,7 +31,7 @@ const Project = ({_id, title, createdAt, updatedAt}: ProjectType) => {
 			<h2>{title}</h2>
 			<div className="flex items-center gap-[10px]">
 				<MdModeEditOutline onClick={(e:React.MouseEvent<any>) => toggleEditProjectForm(e, _id, title)}/>
-				<BsFillTrash3Fill onClick={deleteProject}/>
+				<BsFillTrash3Fill onClick={(e:React.MouseEvent<HTMLOrSVGElement>) => deleteProject(e)}/>
 			</div>
 		</div>
 	)
