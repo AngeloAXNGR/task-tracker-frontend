@@ -7,6 +7,7 @@ import AddProjectForm from "../components/AddProjectForm"
 import EditProjectForm from "../components/EditProjectForm"
 import Task from '../components/Task';
 import AddTaskForm from '../components/AddTaskForm';
+import EditTaskForm from '../components/EditTaskForm';
 
 // Custom Hooks
 import { useFormContext } from "../hooks/useFormContext"
@@ -17,7 +18,7 @@ import { useTaskContext } from '../hooks/useTaskContext';
 import { TaskType } from '../types/task';
 
 const Home = () => {
-	const {addProjectFormState, editProjectFormState, addTaskFormState, toggleAddTaskForm} = useFormContext();
+	const {addProjectFormState, editProjectFormState, addTaskFormState, toggleAddTaskForm, editTaskFormState} = useFormContext();
 	const{activeProject} = useProjectContext();
 	const {tasks,dispatch} = useTaskContext();
 
@@ -41,7 +42,7 @@ const Home = () => {
 			<Sidebar/>
 			{addProjectFormState && <AddProjectForm/>}
 			{editProjectFormState && <EditProjectForm/>}
-
+			{editTaskFormState && <EditTaskForm/>}
 			{addTaskFormState && <AddTaskForm/>}
 
 			<div className="w-0 sm:w-[100%] flex flex-col items-center gap-[20px] pt-[20px]">
