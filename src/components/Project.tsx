@@ -29,6 +29,8 @@ const Project = ({_id, title, createdAt, updatedAt}: ProjectType) => {
 	return (
 		<div className={`flex px-[10px] py-[5px] rounded-md text-white ${activeProject === _id ? 'bg-slate-400' : 'bg-slate-700' } cursor-pointer items-center justify-between hover:bg-slate-600`} onClick={() => setActiveProject(_id)}>
 			<h2>{title}</h2>
+			<h2 className="hidden">{createdAt}</h2>
+			<h2 className="hidden">{updatedAt}</h2>
 			<div className="flex items-center gap-[10px]">
 				<MdModeEditOutline onClick={(e:React.MouseEvent<any>) => toggleEditProjectForm(e, _id, title)}/>
 				<BsFillTrash3Fill onClick={(e:React.MouseEvent<HTMLOrSVGElement>) => deleteProject(e)}/>

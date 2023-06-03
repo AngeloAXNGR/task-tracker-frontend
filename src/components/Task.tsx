@@ -34,6 +34,8 @@ const Task = ({_id, title, dueDate, priority, createdAt, updatedAt}:TaskType) =>
 		<div className="flex items-start justify-between w-[500px] max-w-[100%] text-white">
 			<div className="flex items-start gap-[5px]">
 				<div className="border-2 h-[20px] w-[20px] rounded-full hover:bg-white cursor-pointer" onClick={deleteTask}></div>
+				<h2 className="hidden">{createdAt}</h2>
+				<h2 className="hidden">{updatedAt}</h2>
 				<div className="flex flex-col">
 					<h1 className="mt-[-2px]">{title}</h1>
 					<h1 className={`${parseDate(dueDate) === "Yesterday" ? 'text-red-400' : parseDate(dueDate) === "Today" || parseDate(dueDate) === "Tomorrow" ? 'text-yellow-300' : 'text-white'}`}>{parseDate(dueDate)}</h1>
