@@ -1,6 +1,8 @@
 import { useFormContext } from "../hooks/useFormContext";
 import { useProjectContext } from "../hooks/useProjectContext";
 
+
+const domainName = import.meta.env.VITE_DOMAIN_NAME;
 const AddProjectForm = () => {
 	const {toggleAddProjectForm, projectForm, handleProjectForm, setProjectForm} = useFormContext();
 	const {dispatch} = useProjectContext();
@@ -8,7 +10,7 @@ const AddProjectForm = () => {
 	const createProject = async(e:React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		const title = projectForm.title
-		const response = await fetch(`http://localhost:4000/api/projects`, {
+		const response = await fetch(`${domainName}/api/projects`, {
 			method:'POST',
 			headers:{'Content-type': 'application/json'},
 			body: JSON.stringify({title})
