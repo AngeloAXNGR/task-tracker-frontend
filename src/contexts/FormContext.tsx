@@ -46,7 +46,7 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 	const [addTaskFormState, setAddTaskFormState] = useState(false);
 	const [editTaskFormState, setEditTaskFormState] = useState(false);
 	const [taskForm, setTaskForm] = useState({title:'', dueDate:'', priority:'P1'})
-	const {activeTask, setActiveTask} = useTaskContext()
+	const {setActiveTask} = useTaskContext()
 
 	const toggleAddProjectForm = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
 		e.preventDefault();
