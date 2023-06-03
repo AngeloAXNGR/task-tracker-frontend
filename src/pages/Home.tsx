@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 
-
 // Components
 import Sidebar from "../components/Sidebar"
 import AddProjectForm from "../components/AddProjectForm"
@@ -17,15 +16,19 @@ import { useTaskContext } from '../hooks/useTaskContext';
 // types
 import { TaskType } from '../types/task';
 
+
+const domainName = import.meta.env.VITE_DOMAIN_NAME;
+
 const Home = () => {
 	const {addProjectFormState, editProjectFormState, addTaskFormState, toggleAddTaskForm, editTaskFormState} = useFormContext();
 	const{activeProject} = useProjectContext();
 	const {tasks,dispatch} = useTaskContext();
 
+
 	useEffect(() =>{
 		const fetchTasks = async() => {
 			console.log('Fetching Tasks . . . (useEffect @ Home.tsx)')
-			const response = await fetch(`http://localhost:4000/api/projects/${activeProject}/tasks`);
+			const response = await fetch(`${domainName}/api/projects/${activeProject}/tasks`);
 			const json = await response.json();
 
 			if(response.ok){

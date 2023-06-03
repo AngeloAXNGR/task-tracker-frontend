@@ -1,6 +1,8 @@
 import { useFormContext } from "../hooks/useFormContext";
 import { useTaskContext } from "../hooks/useTaskContext";
 
+
+const domainName = import.meta.env.VITE_DOMAIN_NAME;
 const EditTaskForm = () => {	
 	const {toggleEditTaskForm, taskForm, handleTaskForm, setTaskForm} = useFormContext();
 
@@ -14,7 +16,7 @@ const EditTaskForm = () => {
 		const dueDate = taskForm.dueDate;
 		const priority = taskForm.priority;
 
-		const response = await fetch(`http://localhost:4000/api/tasks/${activeTask}`,{
+		const response = await fetch(`${domainName}/api/tasks/${activeTask}`,{
 			method:'PATCH',
 			headers:{'Content-type': 'application/json'},
 			body:JSON.stringify({title, dueDate, priority})

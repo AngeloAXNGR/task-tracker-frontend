@@ -2,6 +2,9 @@ import { useFormContext } from "../hooks/useFormContext"
 import { useProjectContext } from "../hooks/useProjectContext";
 import { useTaskContext } from "../hooks/useTaskContext";
 
+
+
+const domainName = import.meta.env.VITE_DOMAIN_NAME;
 const AddTaskForm = () => {	
 	const {toggleAddTaskForm, taskForm, handleTaskForm, setTaskForm} = useFormContext();
 
@@ -16,7 +19,7 @@ const AddTaskForm = () => {
 		const dueDate = taskForm.dueDate;
 		const priority = taskForm.priority;
 
-		const response = await fetch(`http://localhost:4000/api/projects/${activeProject}/tasks`,{
+		const response = await fetch(`${domainName}/api/projects/${activeProject}/tasks`,{
 			method:'POST',
 			headers:{'Content-type': 'application/json'},
 			body:JSON.stringify({title, dueDate, priority})

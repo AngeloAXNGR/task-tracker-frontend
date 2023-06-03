@@ -8,6 +8,8 @@ import { ProjectType } from "../types/project"
 import { useProjectContext } from '../hooks/useProjectContext';
 import { useFormContext } from '../hooks/useFormContext';
 
+
+const domainName = import.meta.env.VITE_DOMAIN_NAME;
 const Project = ({_id, title, createdAt, updatedAt}: ProjectType) => {
 	const {dispatch,activeProject,setActiveProject} = useProjectContext();
 
@@ -15,7 +17,7 @@ const Project = ({_id, title, createdAt, updatedAt}: ProjectType) => {
 
 	const deleteProject = async(e:React.MouseEvent<HTMLOrSVGElement>) => {
 		e.stopPropagation();
-		const response = await fetch(`http://localhost:4000/api/projects/${_id}`, {
+		const response = await fetch(`${domainName}/api/projects/${_id}`, {
 			method:'DELETE'
 		}) 
 

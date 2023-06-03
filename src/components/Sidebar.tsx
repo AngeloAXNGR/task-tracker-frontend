@@ -13,6 +13,8 @@ import { useFormContext } from '../hooks/useFormContext';
 // Components
 import Project from './Project';
 
+
+const domainName = import.meta.env.VITE_DOMAIN_NAME;
 const Sidebar = () => {
 	const {projects, dispatch} = useProjectContext();
 	const {toggleAddProjectForm} = useFormContext();
@@ -20,7 +22,7 @@ const Sidebar = () => {
 	useEffect(() =>{
 		const fetchProjects = async() => {
 			console.log('Fetching Projects . . . (useEffect @ Sidebar.tsx)')
-			const response = await fetch(`http://localhost:4000/api/projects`);
+			const response = await fetch(`${domainName}/api/projects`);
 			const json = await response.json();
 
 			if(response.ok){

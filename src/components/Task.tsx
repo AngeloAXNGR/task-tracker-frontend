@@ -12,13 +12,15 @@ import { useFormContext } from '../hooks/useFormContext';
 import { parseDate } from '../utils/date';
 
 
+
+const domainName = import.meta.env.VITE_DOMAIN_NAME;
 const Task = ({_id, title, dueDate, priority, createdAt, updatedAt}:TaskType) => {
 
 	const {dispatch} = useTaskContext();
 	const {toggleEditTaskForm} = useFormContext()
 
 	const deleteTask = async() => {
-		const response = await fetch(`http://localhost:4000/api/tasks/${_id}`, {
+		const response = await fetch(`${domainName}/api/tasks/${_id}`, {
 			method:'DELETE'
 		})
 
