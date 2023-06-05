@@ -35,7 +35,7 @@ const EditTaskForm = () => {
 		<div>
 			<div className="bg-black opacity-70 w-full h-screen fixed top-0 left-0 z-0" onClick={(e) => toggleEditTaskForm(e, '', '', '', '')}></div>
 			<form action="" className="bg-white absolute mx-auto left-0 right-0 max-w-[320px] flex flex-col p-[30px] rounded-lg gap-[20px]">
-				<h1 className="text-center text-4xl font-bold">Add Task</h1>
+				<h1 className="text-center text-4xl font-bold">Update Task</h1>
 				<label htmlFor="title" className="text-xl font-bold">Title:</label>
 				<input 
 					className="border-black border-2 rounded-lg py-[5px] px-[10px]"
