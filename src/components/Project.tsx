@@ -7,11 +7,13 @@ import { ProjectType } from "../types/project"
 // Hooks
 import { useProjectContext } from '../hooks/useProjectContext';
 import { useFormContext } from '../hooks/useFormContext';
+import { useTaskContext } from '../hooks/useTaskContext';
 
 
 const domainName = import.meta.env.VITE_DOMAIN_NAME;
 const Project = ({_id, title, createdAt, updatedAt}: ProjectType) => {
 	const {dispatch,activeProject,setActiveProject} = useProjectContext();
+	const {dispatch:taskDispatch} = useTaskContext()
 
 	const {toggleEditProjectForm} = useFormContext()
 
@@ -25,6 +27,13 @@ const Project = ({_id, title, createdAt, updatedAt}: ProjectType) => {
 
 		if(response.ok){
 			dispatch({type:'DELETE_PROJECT', payload:json})
+
+			
+			
+			if(activeProject === _id){
+				// Render nothing in the task pane if an active project has been deleted
+				taskDispatch({type:'SET_TASKS', payload:null})
+			}
 		}
 	}
 
