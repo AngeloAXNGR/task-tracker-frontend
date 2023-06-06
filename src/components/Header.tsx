@@ -18,7 +18,7 @@ const Header = () => {
 			<div>
 				{user &&
 					(<div className="flex items-center gap-[20px]">
-						<span>{user.email}</span>
+						<span className="text-white">{user.email}</span>
 						<button onClick={handleClick} className="border-2 border-green-500 text-green-500 rounded-lg px-[10px] py-[5px]">Logout</button>
 					</div>)
 				}
