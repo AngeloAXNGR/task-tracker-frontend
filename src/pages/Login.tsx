@@ -1,8 +1,12 @@
 import {useState} from 'react';
 
+// Hooks
+import {useLogin} from '../hooks/useLogin';
 
 const Login = () => {
 	const [formData, setFormData] = useState({email: '', password:''})
+
+	const {login, isLoading} = useLogin()
 
 	const handleInput = (e:React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
@@ -16,6 +20,8 @@ const Login = () => {
 
 	const handleSubmit = async(e:React.MouseEvent<HTMLFormElement>) =>{
 		e.preventDefault()
+
+		await login(formData.email, formData.password)
 	}
 
 	return (
@@ -46,7 +52,7 @@ const Login = () => {
 					/>
 				</div>
 
-				<button className="bg-green-600 text-white self-start mt-[20px] px-[30px] py-[10px] rounded-lg font-bold">Login</button>
+				<button className="bg-green-600 text-white self-start mt-[20px] px-[30px] py-[10px] rounded-lg font-bold" disabled={isLoading}>Login</button>
 			</form>
 		</div>
 	)
