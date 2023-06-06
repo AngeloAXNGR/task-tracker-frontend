@@ -1,9 +1,13 @@
 import {useState} from 'react'
 
+// Hooks
+import { useSignup } from '../hooks/useSignup';
+
 const Signup = () => {
 
 	const [formData, setFormData] = useState({email: '', password:''})
 
+	const {signup, isLoading} = useSignup()
 
 	const handleInput = (e:React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
@@ -18,6 +22,7 @@ const Signup = () => {
 	const handleSubmit = async(e:React.MouseEvent<HTMLFormElement>) =>{
 		e.preventDefault()
 
+		await signup(formData.email, formData.password)
 	}
 
 
@@ -49,7 +54,7 @@ const Signup = () => {
 					/>
 				</div>
 
-				<button className="bg-green-600 text-white self-start mt-[20px] px-[30px] py-[10px] rounded-lg font-bold">Signup</button>
+				<button className="bg-green-600 text-white self-start mt-[20px] px-[30px] py-[10px] rounded-lg font-bold" disabled={isLoading}>Signup</button>
 			</form>
 		</div>
 	)
