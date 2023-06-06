@@ -41,7 +41,7 @@ export const AuthContextProvider = (({children}:AuthContextProviderProps) => {
 	const cookies = new Cookies()
 	useEffect(() => {
 		// Alternative to localStorage
-		const user = cookies.get('')
+		const user = cookies.get('user')
 
 		if(user){
 			dispatch({type:'LOGIN', payload:user})
