@@ -1,18 +1,25 @@
 import { useFormContext } from "../hooks/useFormContext";
 import { useProjectContext } from "../hooks/useProjectContext";
+import useAuthContext from "../hooks/useAuthContext";
 
 
 const domainName = import.meta.env.VITE_DOMAIN_NAME;
 const AddProjectForm = () => {
 	const {toggleAddProjectForm, projectForm, handleProjectForm, setProjectForm} = useFormContext();
 	const {dispatch} = useProjectContext();
+	const {user} = useAuthContext();
+
+	console.log(user.token);
 
 	const createProject = async(e:React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		const title = projectForm.title
 		const response = await fetch(`${domainName}/api/projects`, {
 			method:'POST',
-			headers:{'Content-type': 'application/json'},
+			headers:{
+				'Content-type': 'application/json',
+				'Authorization': `Bearer ${user.token}`
+			},
 			body: JSON.stringify({title})
 		});
 

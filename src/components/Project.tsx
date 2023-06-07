@@ -8,19 +8,24 @@ import { ProjectType } from "../types/project"
 import { useProjectContext } from '../hooks/useProjectContext';
 import { useFormContext } from '../hooks/useFormContext';
 import { useTaskContext } from '../hooks/useTaskContext';
+import useAuthContext from '../hooks/useAuthContext';
 
 
 const domainName = import.meta.env.VITE_DOMAIN_NAME;
 const Project = ({_id, title, createdAt, updatedAt}: ProjectType) => {
 	const {dispatch,activeProject,setActiveProject} = useProjectContext();
 	const {dispatch:taskDispatch} = useTaskContext()
+	const {user} = useAuthContext()
 
 	const {toggleEditProjectForm} = useFormContext()
 
 	const deleteProject = async(e:React.MouseEvent<HTMLOrSVGElement>) => {
 		e.stopPropagation();
 		const response = await fetch(`${domainName}/api/projects/${_id}`, {
-			method:'DELETE'
+			method:'DELETE',
+			headers:{
+				'Authorization': `Bearer ${user.token}`
+			}
 		}) 
 
 		const json = await response.json()

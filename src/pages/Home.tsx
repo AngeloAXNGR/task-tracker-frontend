@@ -12,6 +12,7 @@ import EditTaskForm from '../components/EditTaskForm';
 import { useFormContext } from "../hooks/useFormContext"
 import { useProjectContext } from "../hooks/useProjectContext"
 import { useTaskContext } from '../hooks/useTaskContext';
+import useAuthContext from '../hooks/useAuthContext';
 
 // types
 import { TaskType } from '../types/task';
@@ -23,12 +24,14 @@ const Home = () => {
 	const {addProjectFormState, editProjectFormState, addTaskFormState, toggleAddTaskForm, editTaskFormState} = useFormContext();
 	const{activeProject} = useProjectContext();
 	const {tasks,dispatch} = useTaskContext();
+	const {user} = useAuthContext();
 
+	console.log(activeProject)
 
 	useEffect(() =>{
 		const fetchTasks = async() => {
 			console.log('Fetching Tasks . . . (useEffect @ Home.tsx)')
-			const response = await fetch(`${domainName}/api/projects/${activeProject}/tasks`);
+			const response = await fetch(`${domainName}/api/projects/${activeProject}/tasks`, {headers:{'Authorization': `Bearer ${user.token}`}});
 			const json = await response.json();
 
 			if(response.ok){

@@ -1,11 +1,13 @@
 import { useFormContext } from "../hooks/useFormContext";
 import { useProjectContext } from "../hooks/useProjectContext";
+import useAuthContext from "../hooks/useAuthContext";
 
 
 const domainName = import.meta.env.VITE_DOMAIN_NAME;
 const EditProjectForm = () => {
 	const {toggleEditProjectForm, projectForm, setProjectForm, handleProjectForm} = useFormContext();
 	const {dispatch, activeProject} = useProjectContext();
+	const {user} = useAuthContext()
 
 
 	const updateProject = async(e:React.MouseEvent<HTMLButtonElement>) => {
@@ -13,7 +15,10 @@ const EditProjectForm = () => {
 		const title = projectForm.title
 		const response = await fetch(`${domainName}/api/projects/${activeProject}`, {
 			method:'PATCH',
-			headers:{'Content-type': 'application/json'},
+			headers:{
+				'Content-type': 'application/json',
+				'Authorization': `Bearer ${user.token}`
+			},
 			body: JSON.stringify({title})
 		});
 

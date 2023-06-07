@@ -9,6 +9,7 @@ import { ProjectType } from '../types/project';
 // Custom Hooks
 import { useProjectContext } from '../hooks/useProjectContext';
 import { useFormContext } from '../hooks/useFormContext';
+import useAuthContext from '../hooks/useAuthContext';
 
 // Components
 import Project from './Project';
@@ -18,11 +19,18 @@ const domainName = import.meta.env.VITE_DOMAIN_NAME;
 const Sidebar = () => {
 	const {projects, dispatch} = useProjectContext();
 	const {toggleAddProjectForm} = useFormContext();
+	const {user} = useAuthContext();
+
+	console.log(user);
 
 	useEffect(() =>{
 		const fetchProjects = async() => {
 			console.log('Fetching Projects . . . (useEffect @ Sidebar.tsx)')
-			const response = await fetch(`${domainName}/api/projects`);
+			const response = await fetch(`${domainName}/api/projects`, {
+				headers:{
+					'Authorization': `Bearer ${user.token}`
+				}
+			});
 			const json = await response.json();
 
 			if(response.ok){
@@ -32,7 +40,7 @@ const Sidebar = () => {
 
 		fetchProjects()
 
-	},[dispatch])
+	},[dispatch, user])
 
 	return (
 		<div className="bg-slate-900 w-[100%] h-[calc(100vh-56px)] px-[20px] py-[10px] sm:w-[320px] sm:max-w-[100%]">
