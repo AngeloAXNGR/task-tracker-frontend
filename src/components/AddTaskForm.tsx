@@ -18,11 +18,12 @@ const AddTaskForm = () => {
 		const title = taskForm.title;
 		const dueDate = taskForm.dueDate;
 		const priority = taskForm.priority;
+		const description = taskForm.description;
 
 		const response = await fetch(`${domainName}/api/projects/${activeProject}/tasks`,{
 			method:'POST',
 			headers:{'Content-type': 'application/json'},
-			body:JSON.stringify({title, dueDate, priority})
+			body:JSON.stringify({title, dueDate, priority, description})
 		});
 
 		const json = await response.json();
@@ -64,6 +65,9 @@ const AddTaskForm = () => {
 					<option value="P3">🔵   P3</option>
 					<option value="P4">⚫   P4</option>
 				</select>
+
+				<label htmlFor="description" className="text-xl font-bold">Description:</label>
+				<textarea name="description" id="description" cols={30} rows={10} value={taskForm.description} onChange={(e) =>handleTaskForm(e)}/>
 				
 				<div className="flex items-center gap-[20px]">
 					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-green-600 w-[100%] hover:bg-green-500" onClick={createTask}>Add Task</button>

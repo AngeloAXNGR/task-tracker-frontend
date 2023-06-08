@@ -9,31 +9,33 @@ const EditTaskForm = () => {
 
 	const {dispatch, activeTask} = useTaskContext();
 
+	console.log(taskForm);
 
 	const updateTask = async(e:React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		const title = taskForm.title;
 		const dueDate = taskForm.dueDate;
 		const priority = taskForm.priority;
+		const description = taskForm.description;
 
 		const response = await fetch(`${domainName}/api/tasks/${activeTask}`,{
 			method:'PATCH',
 			headers:{'Content-type': 'application/json'},
-			body:JSON.stringify({title, dueDate, priority})
+			body:JSON.stringify({title, dueDate, priority, description})
 		});
 
 		const json = await response.json();
 
 		if(response.ok){
-			toggleEditTaskForm(e, '', '', '', '')
-			dispatch({type:'UPDATE_TASK', payload:{...json, title:title, dueDate:dueDate, priority:priority}})
+			toggleEditTaskForm(e, '', '', '', '', '')
+			dispatch({type:'UPDATE_TASK', payload:{...json, title:title, dueDate:dueDate, priority:priority, description:description}})
 			setTaskForm({title:'', dueDate:'', priority:'P1'})
 		}
 
 	}
 	return (
 		<div>
-			<div className="bg-black opacity-70 w-full h-screen fixed top-0 left-0 z-0" onClick={(e) => toggleEditTaskForm(e, '', '', '', '')}></div>
+			<div className="bg-black opacity-70 w-full h-screen fixed top-0 left-0 z-0" onClick={(e) => toggleEditTaskForm(e, '', '', '', '','')}></div>
 			<form action="" className="bg-white absolute mx-auto left-0 right-0 max-w-[520px] flex flex-col p-[30px] rounded-lg gap-[20px]">
 				<h1 className="text-center text-4xl font-bold">Update Task</h1>
 				<label htmlFor="title" className="text-xl font-bold">Title:</label>
@@ -53,6 +55,7 @@ const EditTaskForm = () => {
 					name="dueDate"
 					value={taskForm.dueDate} onChange={(e) => handleTaskForm(e)}
 				/>
+				
 
 				<label htmlFor="title" className="text-xl font-bold">Priority:</label>		
 				<select name="priority" id="priority" value={taskForm.priority} onChange={(e) => handleTaskForm(e)}>
@@ -61,10 +64,13 @@ const EditTaskForm = () => {
 					<option value="P3">🔵   P3</option>
 					<option value="P4">⚫   P4</option>
 				</select>
+
+				<label htmlFor="description" className="text-xl font-bold">Description:</label>
+				<textarea name="description" id="description" cols={30} rows={10} value={taskForm.description} onChange={(e) =>handleTaskForm(e)}/>
 				
 				<div className="flex items-center gap-[20px]">
 					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-green-600 w-[100%] hover:bg-green-500" onClick={updateTask}>Update Task</button>
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-red-600 w-[100%] hover:bg-red-500" onClick={(e) => toggleEditTaskForm(e, '', '', '', '')}>Cancel</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-red-600 w-[100%] hover:bg-red-500" onClick={(e) => toggleEditTaskForm(e, '', '', '', '', '')}>Cancel</button>
 				</div>
 			</form>
 		</div>
