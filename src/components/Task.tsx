@@ -14,7 +14,7 @@ import { parseDate } from '../utils/date';
 
 
 const domainName = import.meta.env.VITE_DOMAIN_NAME;
-const Task = ({_id, title, dueDate, priority, createdAt, updatedAt}:TaskType) => {
+const Task = ({_id, title, dueDate, priority, description ,createdAt, updatedAt}:TaskType) => {
 
 	const {dispatch} = useTaskContext();
 	const {toggleEditTaskForm} = useFormContext()
@@ -60,7 +60,7 @@ const Task = ({_id, title, dueDate, priority, createdAt, updatedAt}:TaskType) =>
 			</div>
 
 			<div className="cursor-pointer">
-				<MdModeEditOutline onClick={(e:React.MouseEvent<any>) => toggleEditTaskForm(e,_id, title, dueDate, priority)}/>
+				<MdModeEditOutline onClick={(e:React.MouseEvent<any>) => toggleEditTaskForm(e,_id, title, dueDate, priority, description)}/>
 			</div>
 		</div>
 	)

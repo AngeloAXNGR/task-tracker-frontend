@@ -63,6 +63,7 @@ const Home = () => {
 							_id={task._id}
 							title={task.title}
 							dueDate={task.dueDate}
+							description={task.description}
 							priority={task.priority}
 							createdAt={task.createdAt}
 							updatedAt={task.updatedAt}
