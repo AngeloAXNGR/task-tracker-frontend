@@ -3,6 +3,7 @@ export type TaskType = {
 	title:string,
 	dueDate:string,
 	priority:string,
+	description:string,
 	createdAt:string,
 	updatedAt:string
 }
