@@ -59,10 +59,10 @@ const AddTaskForm = () => {
 
 				<label htmlFor="title" className="text-xl font-bold">Priority:</label>		
 				<select name="priority" id="priority" value={taskForm.priority} onChange={(e) => handleTaskForm(e)}>
-					<option value="P1">P1</option>
-					<option value="P2">P2</option>
-					<option value="P3">P3</option>
-					<option value="P4">P4</option>
+					<option value="P1">🔴   P1</option>
+					<option value="P2">🟠   P2</option>
+					<option value="P3">🔵   P3</option>
+					<option value="P4">⚫   P4</option>
 				</select>
 				
 				<div className="flex items-center gap-[20px]">

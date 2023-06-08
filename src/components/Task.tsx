@@ -31,11 +31,18 @@ const Task = ({_id, title, dueDate, priority, createdAt, updatedAt}:TaskType) =>
 		}
 	}
 
+	const priorityColors:any = {
+		P1: 'border-[#e81224]',
+		P2: 'border-[#f7630c]',
+		P3: 'border-[#0078d7]',
+	};
+
+	const priorityColor = priorityColors[priority] || 'border-white';
 
 	return (
 		<div className="flex items-start justify-between w-[500px] max-w-[100%] text-white">
 			<div className="flex items-start gap-[5px]">
-				<div className="border-2 h-[20px] w-[20px] rounded-full hover:bg-white cursor-pointer" onClick={deleteTask}></div>
+				<div className={`border-2 ${priorityColor} h-[20px] w-[20px] rounded-full hover:bg-white cursor-pointer`} onClick={deleteTask}></div>
 				<h2 className="hidden">{createdAt}</h2>
 				<h2 className="hidden">{updatedAt}</h2>
 				<div className="flex flex-col">
