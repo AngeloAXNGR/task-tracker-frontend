@@ -37,7 +37,15 @@ const Task = ({_id, title, dueDate, priority, createdAt, updatedAt}:TaskType) =>
 		P3: 'border-[#0078d7]',
 	};
 
+	const dueDateStrings:any = {
+		Yesterday: 'text-red-400',
+		Today: 'text-yellow-300',
+		Tomorrow: 'text-yellow-300',
+	}
+
 	const priorityColor = priorityColors[priority] || 'border-white';
+
+	const dueDateString = dueDateStrings[parseDate(dueDate)] || 'text-white';
 
 	return (
 		<div className="flex items-start justify-between w-[500px] max-w-[100%] text-white">
@@ -47,7 +55,7 @@ const Task = ({_id, title, dueDate, priority, createdAt, updatedAt}:TaskType) =>
 				<h2 className="hidden">{updatedAt}</h2>
 				<div className="flex flex-col">
 					<h1 className="mt-[-2px]">{title}</h1>
-					<h1 className={`${parseDate(dueDate) === "Yesterday" ? 'text-red-400' : parseDate(dueDate) === "Today" || parseDate(dueDate) === "Tomorrow" ? 'text-yellow-300' : 'text-white'}`}>{parseDate(dueDate)}</h1>
+					<h1 className={dueDateString}>{parseDate(dueDate)}</h1>
 				</div>
 			</div>
 
