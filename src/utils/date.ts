@@ -9,15 +9,20 @@ export const parseDate = (dueDate: string) => {
   const diffTime = todayTimeStamp - dueTimeStamp;
   const diffDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-  if (diffDay === 0) {
-    return "Today";
-  } else if (diffDay === 1) {
-    return "Tomorrow";
-  } else if (diffDay === -1) {
-    return "Yesterday";
-  } else {
-    const [year, month, day] = dueDate.split('-');
-    const parsedMonth = parseInt(month);
-    return `${day} ${monthNames[parsedMonth - 1]} ${year}`;
+  if(dueDate === ""){
+    return "No Due Date"
+  }else{
+    if (diffDay === 0) {
+      return "Today";
+    } else if (diffDay === 1) {
+      return "Tomorrow";
+    } else if (diffDay === -1) {
+      return "Yesterday";
+    } else {
+      const [year, month, day] = dueDate.split('-');
+      const parsedMonth = parseInt(month);
+      return `${day} ${monthNames[parsedMonth - 1]} ${year}`;
+    }
   }
+
 };
