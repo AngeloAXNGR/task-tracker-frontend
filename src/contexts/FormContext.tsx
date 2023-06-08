@@ -12,6 +12,7 @@ type TaskForm = {
 	title:string,
 	dueDate:string,
 	priority:string,
+	description:string,
 }
 
 type FormContextType = {
@@ -28,7 +29,7 @@ type FormContextType = {
 	toggleAddProjectForm: (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void
 	toggleEditProjectForm: (e:React.MouseEvent<any>, _id:string, title:string) => void
 	toggleAddTaskForm: (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void
-	toggleEditTaskForm: (e:React.MouseEvent<any>, _id:string, title:string, dueDate:string, priority:string) => void
+	toggleEditTaskForm: (e:React.MouseEvent<any>, _id:string, title:string, dueDate:string, priority:string, description:string) => void
 }
 
 type FormContextProviderProps = {
@@ -45,7 +46,7 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 
 	const [addTaskFormState, setAddTaskFormState] = useState(false);
 	const [editTaskFormState, setEditTaskFormState] = useState(false);
-	const [taskForm, setTaskForm] = useState({title:'', dueDate:'', priority:'P1'})
+	const [taskForm, setTaskForm] = useState({title:'', dueDate:'', priority:'P1', description:''})
 	const {setActiveTask} = useTaskContext()
 
 	const toggleAddProjectForm = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
@@ -76,11 +77,11 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 		setAddTaskFormState(prevState => {return !prevState})
 	}
 
-	const toggleEditTaskForm = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>, _id:string, title:string, dueDate:string, priority:string) => {
+	const toggleEditTaskForm = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>, _id:string, title:string, dueDate:string, priority:string, description:string) => {
 		e.preventDefault();
 		setActiveTask(_id);
 		setEditTaskFormState(prevState => {return !prevState});
-		setTaskForm({title:title, dueDate:dueDate, priority:priority})
+		setTaskForm({title:title, dueDate:dueDate, priority:priority, description:description})
 	}
 
 	const handleTaskForm = (event:React.ChangeEvent<any>) => {
