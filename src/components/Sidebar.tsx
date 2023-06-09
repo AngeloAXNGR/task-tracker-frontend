@@ -21,8 +21,6 @@ const Sidebar = () => {
 	const {toggleAddProjectForm} = useFormContext();
 	const {user} = useAuthContext();
 
-	console.log(user);
-
 	useEffect(() =>{
 		const fetchProjects = async() => {
 			console.log('Fetching Projects . . . (useEffect @ Sidebar.tsx)')
@@ -56,8 +54,6 @@ const Sidebar = () => {
 								key={project._id}
 								_id={project._id} 
 								title={project.title} 
-								createdAt={project.createdAt} 
-								updatedAt={project.updatedAt}
 							/>
 						)
 					})
