@@ -5,6 +5,10 @@ import { ProjectType, ProjectContextType, ProjectContextProviderProps, ProjectAc
 
 export const ProjectContext = createContext ({} as ProjectContextType)
 
+const sortProjects = (projects:ProjectType[]) => {
+	return projects.sort((a:ProjectType,b:ProjectType) =>(a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
+}
+
 export const projectsReducer = (state:any, action:ProjectAction) => {
 	switch(action.type){
 		case 'SET_PROJECTS':
@@ -14,12 +18,12 @@ export const projectsReducer = (state:any, action:ProjectAction) => {
 
 		case 'CREATE_PROJECT':
 			return{
-				projects: [action.payload, ...state.projects]
+				projects: sortProjects([action.payload, ...state.projects])
 			}
 
 		case 'UPDATE_PROJECT':
 			return{
-				projects:[action.payload, ...state.projects.filter((project:ProjectType) => project._id !== action.payload._id)]
+				projects:sortProjects([action.payload, ...state.projects.filter((project:ProjectType) => project._id !== action.payload._id)])
 			}
 
 		case 'DELETE_PROJECT':

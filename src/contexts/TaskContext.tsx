@@ -6,6 +6,10 @@ import {TaskContextType, TaskContextProviderProps, TaskAction, TaskType } from '
 
 export const TaskContext = createContext({} as TaskContextType)
 
+const sortTasks = (tasks:TaskType[]) => {
+	return tasks.sort((a:TaskType,b:TaskType) =>(a.priority > b.priority) ? 1 : ((b.priority > a.priority) ? -1 : 0))
+}
+
 export const taskReducer = (state:any, action: TaskAction) => {
 	switch(action.type){
 		case 'SET_TASKS':
@@ -15,11 +19,11 @@ export const taskReducer = (state:any, action: TaskAction) => {
 		
 		case 'CREATE_TASK':
 			return{
-				tasks: [action.payload, ...state.tasks]
+				tasks: sortTasks([action.payload, ...state.tasks])
 			}	
 		case 'UPDATE_TASK':
 			return{
-				tasks:[action.payload, ...state.tasks.filter((task:TaskType) => task._id !== action.payload._id)]
+				tasks:sortTasks([action.payload, ...state.tasks.filter((task:TaskType) => task._id !== action.payload._id)])
 			}
 		case 'DELETE_TASK':
 			return{
