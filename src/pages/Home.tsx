@@ -38,10 +38,16 @@ const Home = () => {
 			}
 		}
 
+		if(activeProject === ""){
+			dispatch({type:'SET_TASKS', payload:""})
+			return
+		}
 		fetchTasks()
 
 	},[dispatch, activeProject])
 
+
+	console.log(activeProject)
 	return (
 		<div className="flex justify-between">
 			<Sidebar/>

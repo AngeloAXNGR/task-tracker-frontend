@@ -3,13 +3,17 @@ import {Link} from 'react-router-dom';
 // Hooks
 import { useLogout } from '../hooks/useLogout';
 import useAuthContext from '../hooks/useAuthContext';
+import { useProjectContext } from '../hooks/useProjectContext';
 
 
 const Header = () => {
 	const {user} = useAuthContext();
 	const {logout} = useLogout();
 
+	const {setActiveProject} = useProjectContext();
+
 	const handleClick = () => {
+		setActiveProject("")
 		logout();
 	}
 	return (
