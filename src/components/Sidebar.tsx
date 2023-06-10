@@ -41,7 +41,7 @@ const Sidebar = () => {
 	},[dispatch, user])
 
 	return (
-		<div className="bg-slate-900 w-[100%] h-[calc(100vh-56px)] px-[20px] py-[10px] sm:w-[320px] sm:max-w-[100%]">
+		<div className="bg-slate-900 w-[100%] h-[calc(100vh-58px)] px-[20px] py-[10px] sm:w-[320px] sm:max-w-[100%]">
 			<div className="flex items-center mb-[20px] justify-between">
 				<h1 className="text-white font-bold text-3xl">Projects</h1>
 				<MdAddCircleOutline className="text-white cursor-pointer" size={30} onClick={(e:any) => toggleAddProjectForm(e)}/>
