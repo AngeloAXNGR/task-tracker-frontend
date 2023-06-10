@@ -7,6 +7,7 @@ import EditProjectForm from "../components/EditProjectForm"
 import Task from '../components/Task';
 import AddTaskForm from '../components/AddTaskForm';
 import EditTaskForm from '../components/EditTaskForm';
+import ViewTask from '../components/ViewTask';
 
 // Custom Hooks
 import { useFormContext } from "../hooks/useFormContext"
@@ -23,10 +24,8 @@ const domainName = import.meta.env.VITE_DOMAIN_NAME;
 const Home = () => {
 	const {addProjectFormState, editProjectFormState, addTaskFormState, toggleAddTaskForm, editTaskFormState} = useFormContext();
 	const{activeProject} = useProjectContext();
-	const {tasks,dispatch} = useTaskContext();
+	const {tasks,dispatch, selectedTask, taskOpen} = useTaskContext();
 	const {user} = useAuthContext();
-
-	console.log(activeProject)
 
 	useEffect(() =>{
 		const fetchTasks = async() => {
@@ -50,6 +49,15 @@ const Home = () => {
 			{editProjectFormState && <EditProjectForm/>}
 			{editTaskFormState && <EditTaskForm/>}
 			{addTaskFormState && <AddTaskForm/>}
+			{taskOpen &&
+				<ViewTask
+					_id={selectedTask._id}
+					title={selectedTask.title}
+					dueDate={selectedTask.dueDate}
+					priority={selectedTask.priority}
+					description={selectedTask.description}
+				/>
+			}
 
 			<div className="w-0 sm:w-[100%] flex flex-col items-center gap-[20px] pt-[20px]">
 				{tasks && 
