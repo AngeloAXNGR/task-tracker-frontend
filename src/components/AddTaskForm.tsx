@@ -36,30 +36,32 @@ const AddTaskForm = () => {
 
 	}
 	return (
-		<div>
-			<div className="bg-black opacity-70 w-full h-screen fixed top-0 left-0 z-0" onClick={(e) => toggleAddTaskForm(e)}></div>
-			<form action="" className="bg-white absolute mx-auto left-0 right-0 max-w-[520px] flex flex-col p-[30px] rounded-lg gap-[20px]">
-				<h1 className="text-center text-4xl font-bold">Add Task</h1>
-				<label htmlFor="title" className="text-xl font-bold">Title:</label>
+		<div className="fixed top-0 flex items-center justify-center w-full h-screen">
+			<div className="w-[100%] fixed top-0 h-screen bg-black opacity-40" onClick={(e) => toggleAddTaskForm(e)}></div>
+			<form action="" className="text-white h-[520px] max-h-[100%] bg-slate-800 w-[620px] overflow-auto flex flex-col gap-[20px] p-[30px] pt-[10px] rounded-xl relative z-10 font-bold">
+				<h1 className="text-4xl font-bold">Add Task</h1>
+				<label htmlFor="title" className="text-xl font-bold hidden">Title:</label>
 				<input 
-					className="border-black border-2 rounded-lg py-[5px] px-[10px]"
+					className="rounded-lg py-[5px] px-[10px] bg-slate-700 placeholder:text-gray-300 placeholder:font-bold"
 					type="text" 
 					id="title"
 					name="title"
+					placeholder="Title"
 					value={taskForm.title} onChange={(e) => handleTaskForm(e)}
 				/>
 
-				<label htmlFor="title" className="text-xl font-bold">Due Date:</label>
+				<label htmlFor="dueDate" className="text-xl font-bold hidden ">Due Date:</label>
 				<input 
-					className="border-black border-2 rounded-lg py-[5px] px-[10px]"
+					className="rounded-lg py-[10px] px-[10px] bg-slate-700 font-bold text-gray-300"
 					type="date" 
 					id="dueDate"
 					name="dueDate"
 					value={taskForm.dueDate} onChange={(e) => handleTaskForm(e)}
 				/>
 
-				<label htmlFor="title" className="text-xl font-bold">Priority:</label>		
-				<select name="priority" id="priority" value={taskForm.priority} onChange={(e) => handleTaskForm(e)}>
+
+				<label htmlFor="priority" className="text-xl font-bold hidden">Priority:</label>		
+				<select className="rounded-lg py-[5px] px-[10px] bg-slate-700" name="priority" id="priority" value={taskForm.priority} onChange={(e) => handleTaskForm(e)}>
 					<option value="P1">🔴   P1</option>
 					<option value="P2">🟠   P2</option>
 					<option value="P3">🔵   P3</option>
@@ -67,11 +69,11 @@ const AddTaskForm = () => {
 				</select>
 
 				<label htmlFor="description" className="text-xl font-bold">Description:</label>
-				<textarea name="description" id="description" cols={30} rows={10} value={taskForm.description} onChange={(e) =>handleTaskForm(e)}/>
+				<textarea className="p-[10px] bg-slate-700 placeholder:font-bold placeholder:text-gray-300" name="description" id="description" cols={30} rows={10} value={taskForm.description} onChange={(e) =>handleTaskForm(e)}  placeholder="Add a Description (optional)"/>
 				
 				<div className="flex items-center gap-[20px]">
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-green-600 w-[100%] hover:bg-green-500" onClick={createTask}>Add Task</button>
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-red-600 w-[100%] hover:bg-red-500" onClick={(e) => toggleAddTaskForm(e)}>Cancel</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500" onClick={createTask}>Add Task</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500" onClick={(e) => toggleAddTaskForm(e)}>Cancel</button>
 				</div>
 			</form>
 		</div>

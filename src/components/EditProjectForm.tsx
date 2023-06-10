@@ -32,22 +32,23 @@ const EditProjectForm = () => {
 	}
 	
 	return (
-		<div>
-			<div className="bg-black opacity-70 w-full h-screen fixed top-0 left-0 z-0" onClick={(e) => toggleEditProjectForm(e, '', '')}></div>
-			<form action="" className="bg-white absolute mx-auto left-0 right-0 max-w-[320px] flex flex-col p-[30px] rounded-lg gap-[20px]">
-				<h1 className="text-center text-4xl font-bold">Update Project</h1>
-				<label htmlFor="title" className="text-xl font-bold">Title:</label>
+		<div className="fixed top-0 flex items-center justify-center w-full h-screen">
+			<div className="w-[100%] fixed top-0 h-screen bg-black opacity-40" onClick={(e) => toggleEditProjectForm(e, '', '')}></div>
+			<form action="" className="text-white bg-slate-800 absolute mx-auto left-0 right-0 max-w-[320px] flex flex-col p-[30px] rounded-lg gap-[20px] font-bold">
+				<h1 className="text-4xl font-bold">Update Project</h1>
+				<label htmlFor="title" className="text-xl font-bold hidden">Title:</label>
 				<input 
-					className="border-black border-2 rounded-lg py-[5px] px-[10px]"
+					className="bg-slate-700 rounded-lg py-[5px] px-[10px] placeholder:text-gray-300 placeholder:font-bold"
 					type="text" 
 					id="title"
 					name="title"
 					value={projectForm.title}
 					onChange={(e) => handleProjectForm(e)}
+					placeholder="Title"
 				/>
 				<div className="flex items-center gap-[20px]">
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-green-600 w-[100%] hover:bg-green-500" onClick={(e) => {updateProject(e)}}>Update</button>
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-red-600 w-[100%] hover:bg-red-500" onClick={(e) => toggleEditProjectForm(e, '', '')}>Cancel</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500" onClick={(e) => {updateProject(e)}}>Update</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500" onClick={(e) => toggleEditProjectForm(e, '', '')}>Cancel</button>
 				</div>
 			</form>
 		</div>

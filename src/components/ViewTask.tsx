@@ -6,7 +6,11 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown"
 // Hooks
 import { useTaskContext } from "../hooks/useTaskContext"
 
+// Utils
 import { parseDate } from "../utils/date"
+
+// React-Icons
+import {AiFillCloseCircle} from 'react-icons/ai';
 
 const ViewTask = ({_id, title, dueDate, priority, description}:TaskType) => {
 
@@ -43,31 +47,47 @@ const ViewTask = ({_id, title, dueDate, priority, description}:TaskType) => {
   );
 
 	return (
-		<div>
-			<div className="bg-black opacity-20 w-full h-screen fixed top-0 left-0 z-0" onClick={(e) => toggleTaskView(e, _id)}></div>
-			<div className="absolute max-w-[920px] mx-auto left-0 right-0 flex rounded-xl p-[20px] pt-[10px] bg-slate-900 text-white gap-[30px]">
-				<div className="prose flex flex-col rounded-lg w-[75%]">
-					<h1 className="text-5xl mb-[10px] text-white">{title}</h1>
-					<ReactMarkdown 
-						className="border-2 border-slate-800 px-[20px] mt-[10px] rounded-lg" 
-						components={{
+
+	<div className="fixed top-0 flex items-center justify-center w-full h-screen">
+		<div className="w-[100%] fixed top-0 h-screen bg-black opacity-40" onClick={(e) => toggleTaskView(e, _id)}></div>
+		<div className="bg-slate-800 w-[100%] max-w-[920px] text-white relative z-10 rounded-xl overflow-hidden">
+			<div className="overflow-hidden p-[20px] border-b-[1px] border-slate-500 flex justify-end cursor-pointer">
+				<AiFillCloseCircle
+					onClick={(e:any) => toggleTaskView(e,_id)}
+				/>
+			</div>
+			<div className="flex justify-center">
+				<div className="flex flex-col w-[75%] items-center p-[30px] border-r-[1px] border-slate-500">
+					<h1 className="self-start text-4xl font-bold mb-[20px]">{title}</h1>
+					<div className="prose overflow-auto h-[320px] border-[1px] border-slate-700  rounded-lg w-[100%]">
+						<ReactMarkdown
+							className="px-[20px] mt-[10px] rounded-lg"
+							components={{
 							a:renderLink,
 							p: renderText,
 							h1: renderHeading,
 							strong: renderStrong,
 							em: renderEmphasis,
 							li:renderList
-						}}
+							}}
 						>
-						{description}
-					</ReactMarkdown>
+							{description}
+						</ReactMarkdown>
+					</div>
 				</div>
-				<div>
-					<h2>Due Date: {parseDate(dueDate)}</h2>
-					<h2>Priority: {priority}</h2>
+				<div className="bg-slate-700 w-[25%] py-[30px] px-[10px] flex flex-col">
+					<div className="border-y-[1px] border-slate-500 py-[5px] font-bold">
+						<h2>Due Date</h2>
+						<h2>{parseDate(dueDate)}</h2>
+					</div>
+					<div className="border-b-[1px] border-slate-500 py-[5px] font-bold">
+						<h2>Priority</h2>
+						<h2>{priority}</h2>
+					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	)
 }
 
