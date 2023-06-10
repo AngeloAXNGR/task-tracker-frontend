@@ -78,7 +78,7 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 	}
 
 	const toggleEditTaskForm = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>, _id:string, title:string, dueDate:string, priority:string, description:string) => {
-		e.preventDefault();
+		e.stopPropagation();
 		setActiveTask(_id);
 		setEditTaskFormState(prevState => {return !prevState});
 		setTaskForm({title:title, dueDate:dueDate, priority:priority, description:description})
