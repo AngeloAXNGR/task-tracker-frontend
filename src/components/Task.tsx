@@ -14,9 +14,9 @@ import { parseDate } from '../utils/date';
 
 
 const domainName = import.meta.env.VITE_DOMAIN_NAME;
-const Task = ({_id, title, dueDate, priority, description ,createdAt, updatedAt}:TaskType) => {
+const Task = ({_id, title, dueDate, priority, description}:TaskType) => {
 
-	const {dispatch} = useTaskContext();
+	const {dispatch, toggleTaskView} = useTaskContext();
 	const {toggleEditTaskForm} = useFormContext()
 
 	const deleteTask = async() => {
@@ -48,11 +48,9 @@ const Task = ({_id, title, dueDate, priority, description ,createdAt, updatedAt}
 	const dueDateString = dueDateStrings[parseDate(dueDate)] || 'text-white';
 
 	return (
-		<div className="flex items-start justify-between w-[500px] max-w-[100%] text-white">
+		<div className="flex items-start justify-between w-[500px] max-w-[100%] text-white" onClick={(e) => toggleTaskView(e, _id)}>
 			<div className="flex items-start gap-[5px]">
 				<div className={`border-2 ${priorityColor} h-[20px] w-[20px] rounded-full hover:bg-white cursor-pointer`} onClick={deleteTask}></div>
-				<h2 className="hidden">{createdAt}</h2>
-				<h2 className="hidden">{updatedAt}</h2>
 				<div className="flex flex-col">
 					<h1 className="mt-[-2px]">{title}</h1>
 					<h1 className={dueDateString}>{parseDate(dueDate)}</h1>

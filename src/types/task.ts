@@ -4,15 +4,18 @@ export type TaskType = {
 	dueDate:string,
 	priority:string,
 	description:string,
-	createdAt:string,
-	updatedAt:string
+	createdAt?:string,
+	updatedAt?:string
 }
 
 export type TaskContextType = {
 	tasks: TaskType[],
 	dispatch:any,
 	activeTask: string,
-	setActiveTask: React.Dispatch<React.SetStateAction<string>>
+	setActiveTask: React.Dispatch<React.SetStateAction<string>>,
+	toggleTaskView: (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>, _id:string) => void,
+	taskOpen:boolean,
+	selectedTask: TaskType
  }
  
  export type TaskContextProviderProps = {

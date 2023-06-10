@@ -40,8 +40,20 @@ export const TaskContextProvider = (({children}: TaskContextProviderProps) => {
 	})
 
 	const [activeTask, setActiveTask] = useState('')
+	const [taskOpen, setTaskOpen] = useState(false);
+
+	const [selectedTask, setSelectedTask] =  useState<TaskType>();
+
+	const toggleTaskView = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>, _id:string) => {
+		e.stopPropagation();
+		setTaskOpen(prevTaskOpen => {return !prevTaskOpen})
+		const test = state.tasks.filter((task:TaskType) => task._id === _id)[0]
+		setSelectedTask(test)
+
+	}
+
 	return(
-		<TaskContext.Provider value={{...state, dispatch, activeTask, setActiveTask}}>
+		<TaskContext.Provider value={{...state, dispatch, activeTask, setActiveTask, toggleTaskView, taskOpen, selectedTask}}>
 			{children}
 		</TaskContext.Provider>
 	)
