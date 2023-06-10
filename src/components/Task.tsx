@@ -19,7 +19,8 @@ const Task = ({_id, title, dueDate, priority, description}:TaskType) => {
 	const {dispatch, toggleTaskView} = useTaskContext();
 	const {toggleEditTaskForm} = useFormContext()
 
-	const deleteTask = async() => {
+	const deleteTask = async(e:React.MouseEvent<HTMLDivElement>) => {
+		e.stopPropagation();
 		const response = await fetch(`${domainName}/api/tasks/${_id}`, {
 			method:'DELETE'
 		})
@@ -50,7 +51,7 @@ const Task = ({_id, title, dueDate, priority, description}:TaskType) => {
 	return (
 		<div className="flex items-start justify-between w-[500px] max-w-[100%] text-white" onClick={(e) => toggleTaskView(e, _id)}>
 			<div className="flex items-start gap-[5px]">
-				<div className={`border-2 ${priorityColor} h-[20px] w-[20px] rounded-full hover:bg-white cursor-pointer`} onClick={deleteTask}></div>
+				<div className={`border-2 ${priorityColor} h-[20px] w-[20px] rounded-full hover:bg-white cursor-pointer`} onClick={(e) => deleteTask(e)}></div>
 				<div className="flex flex-col">
 					<h1 className="mt-[-2px]">{title}</h1>
 					<h1 className={dueDateString}>{parseDate(dueDate)}</h1>
