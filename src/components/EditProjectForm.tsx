@@ -26,7 +26,7 @@ const EditProjectForm = () => {
 
 		if(response.ok){
 			dispatch({type:'UPDATE_PROJECT', payload:{...json, title:title}});
-			toggleEditProjectForm(e, '', '');
+			toggleEditProjectForm(e, activeProject, '');
 			setProjectForm({title:''})
 		}
 	}
@@ -47,8 +47,8 @@ const EditProjectForm = () => {
 					placeholder="Title"
 				/>
 				<div className="flex items-center gap-[20px]">
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500" onClick={(e) => {updateProject(e)}}>Update</button>
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500" onClick={(e) => toggleEditProjectForm(e, '', '')}>Cancel</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={(e) => {updateProject(e)}}>Update</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={(e) => toggleEditProjectForm(e, '', '')}>Cancel</button>
 				</div>
 			</form>
 		</div>
