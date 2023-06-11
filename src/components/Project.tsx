@@ -43,7 +43,7 @@ const Project = ({_id, title}: ProjectType) => {
 	}
 
 	return (
-		<div className={`flex px-[10px] py-[5px] rounded-md text-white ${activeProject === _id ? 'bg-slate-400' : 'bg-slate-700' } cursor-pointer items-center justify-between hover:bg-slate-600`} onClick={() => setActiveProject(_id)}>
+		<div className={`flex px-[10px] py-[5px] rounded-md text-white ${activeProject === _id ? 'bg-slate-500' : 'bg-slate-800' } cursor-pointer items-center justify-between `} onClick={() => setActiveProject(_id)}>
 			<h2>{title}</h2>
 			<div className="flex items-center gap-[10px]">
 				<MdModeEditOutline onClick={(e:React.MouseEvent<any>) => toggleEditProjectForm(e, _id, title)}/>
