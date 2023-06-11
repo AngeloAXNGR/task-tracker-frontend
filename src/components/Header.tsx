@@ -23,14 +23,7 @@ const Header = () => {
 				{user &&
 					(<div className="flex items-center gap-[20px]">
 						<span className="text-white">{user.email}</span>
-						<button onClick={handleClick} className="border-2 border-green-500 text-green-500 rounded-lg px-[10px] py-[5px]">Logout</button>
-					</div>)
-				}
-
-				{!user && 
-					(<div className="flex items-center gap-[20px]">
-						<Link to="/login">Login</Link>
-						<Link to="/signup">Signup</Link>
+						<button onClick={handleClick} className="font-bold border-2 border-green-500 text-green-500 rounded-lg px-[10px] py-[5px] hover:bg-green-500 hover:text-white transition-all duration-150">Logout</button>
 					</div>)
 				}
 			</div>

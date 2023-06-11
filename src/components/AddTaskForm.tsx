@@ -72,8 +72,8 @@ const AddTaskForm = () => {
 				<textarea className="p-[10px] bg-slate-700 placeholder:font-bold placeholder:text-gray-300" name="description" id="description" cols={30} rows={10} value={taskForm.description} onChange={(e) =>handleTaskForm(e)}  placeholder="Add a Description (optional)"/>
 				
 				<div className="flex items-center gap-[20px]">
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500" onClick={createTask}>Add Task</button>
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500" onClick={(e) => toggleAddTaskForm(e)}>Cancel</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={createTask}>Add Task</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={(e) => toggleAddTaskForm(e)}>Cancel</button>
 				</div>
 			</form>
 		</div>

@@ -37,7 +37,7 @@ const EditTaskForm = () => {
 		<div className="fixed top-0 flex items-center justify-center w-full h-screen">
 				<div className="w-[100%] fixed top-0 h-screen bg-black opacity-40" onClick={(e) => toggleEditTaskForm(e, '','','','','')}></div>
 				<form action="" className="text-white h-[520px] max-h-[100%] bg-slate-800 w-[620px] overflow-auto flex flex-col gap-[20px] p-[30px] pt-[10px] rounded-xl relative z-10 font-bold">
-				<h1 className="text-4xl font-bold">Add Task</h1>
+				<h1 className="text-4xl font-bold">Update Task</h1>
 				<label htmlFor="title" className="text-xl font-bold hidden">Title:</label>
 				<input 
 					className="rounded-lg py-[5px] px-[10px] bg-slate-700 placeholder:text-gray-300 placeholder:font-bold"
@@ -70,8 +70,8 @@ const EditTaskForm = () => {
 				<textarea className="p-[10px] bg-slate-700 placeholder:font-bold placeholder:text-gray-300" name="description" id="description" cols={30} rows={10} value={taskForm.description} onChange={(e) =>handleTaskForm(e)}  placeholder="Add a Description (optional)"/>
 				
 				<div className="flex items-center gap-[20px]">
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500" onClick={updateTask}>Add Task</button>
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500" onClick={(e) => toggleEditTaskForm(e,'','','','','')}>Cancel</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={updateTask}>Update Task</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={(e) => toggleEditTaskForm(e,'','','','','')}>Cancel</button>
 				</div>
 				</form>
 		</div>

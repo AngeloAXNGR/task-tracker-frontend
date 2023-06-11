@@ -49,8 +49,8 @@ const AddProjectForm = () => {
 					placeholder="Title"
 				/>
 				<div className="flex items-center gap-[20px]">
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500" onClick={(e) => createProject(e)}>Add Project</button>
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500" onClick={(e) => toggleAddProjectForm(e)}>Cancel</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={(e) => createProject(e)}>Add Project</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={(e) => toggleAddProjectForm(e)}>Cancel</button>
 				</div>
 			</form>
 		</div>

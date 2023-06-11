@@ -49,7 +49,7 @@ const Task = ({_id, title, dueDate, priority, description}:TaskType) => {
 	const dueDateString = dueDateStrings[parseDate(dueDate)] || 'text-white';
 
 	return (
-		<div className="flex items-start justify-between w-[80%] text-white p-[10px] hover:bg-slate-500 cursor-pointer border-b-[1px] border-slate-500" onClick={(e) => toggleTaskView(e, _id)}>
+		<div className="flex items-start justify-between w-[80%] text-white p-[10px] hover:bg-slate-500 cursor-pointer border-b-[1px] border-slate-500 transition-bg duration-150" onClick={(e) => toggleTaskView(e, _id)}>
 			<div className="flex items-start gap-[5px]">
 				<div className={`border-2 ${priorityColor} h-[20px] w-[20px] rounded-full hover:bg-white cursor-pointer`} onClick={(e) => deleteTask(e)}></div>
 				<div className="flex flex-col">

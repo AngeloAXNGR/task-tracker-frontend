@@ -67,7 +67,7 @@ const Home = () => {
 
 			<div className="w-0 sm:w-[100%] flex flex-col items-center pt-[20px]">
 				{tasks && 
-					<button className="text-white font-bold bg-slate-600 hover:bg-slate-500 px-[20px] py-[5px] rounded-md mb-[20px]" onClick={(e) => toggleAddTaskForm(e)}>Add Task</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 hover:bg-slate-500 transition-bg duration-150 mb-[20px]" onClick={(e) => toggleAddTaskForm(e)}>Add Task</button>
 				}
 
 				{tasks && tasks.map((task:TaskType) => {
