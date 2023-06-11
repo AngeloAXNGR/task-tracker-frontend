@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import { Link } from 'react-router-dom';
 
 // Hooks
 import {useLogin} from '../hooks/useLogin';
@@ -26,12 +27,12 @@ const Login = () => {
 
 	return (
 		<div className="mt-[60px] w-[100%] h-[calc(100vh-116px)]">
-			<form className="flex flex-col p-[30px] max-w-[500px] mx-auto rounded-lg bg-white" onSubmit={handleSubmit}>
-				<h1 className="text-4xl font-bold mb-[20px]">Login</h1>
+			<form className="flex flex-col p-[30px] gap-[20px] max-w-[400px] mx-auto rounded-lg bg-slate-700 text-white font-bold" onSubmit={handleSubmit}>
+				<h1 className="text-4xl font-bold text-center">LOGIN</h1>
 				<div className="flex flex-col gap-[10px]">
 					<label htmlFor="email" className="text-xl">Email:</label>
 					<input
-						className="border-gray-400 border-2 py-[5px] px-[10px] rounded-lg"
+						className="py-[5px] px-[10px] rounded-lg bg-slate-600"
 						type="email"
 						name="email"
 						id="email"
@@ -40,10 +41,10 @@ const Login = () => {
 					/>
 				</div>
 
-				<div className="flex flex-col gap-[10px] mt-[20px]">
+				<div className="flex flex-col gap-[10px]">
 					<label htmlFor="password" className="text-xl">Password:</label>
 					<input
-						className="border-gray-400 border-2 py-[5px] px-[10px] rounded-lg"
+						className="py-[5px] px-[10px] rounded-lg bg-slate-600"
 						type="password"
 						name="password"
 						id="password"
@@ -52,7 +53,8 @@ const Login = () => {
 					/>
 				</div>
 
-				<button className="bg-green-600 text-white self-start mt-[20px] px-[30px] py-[10px] rounded-lg font-bold" disabled={isLoading}>Login</button>
+				<button className="bg-slate-600 hover:bg-slate-500 transition-bg duration-150 text-white px-[30px] py-[5px] rounded-lg font-bold self-center w-[100%]" disabled={isLoading}>Login</button>
+				<Link to="/signup" className="self-center">Need an Account? Sign Up</Link>
 			</form>
 		</div>
 	)
