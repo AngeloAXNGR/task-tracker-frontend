@@ -3,14 +3,15 @@ import {Link} from 'react-router-dom';
 // Hooks
 import { useLogout } from '../hooks/useLogout';
 import useAuthContext from '../hooks/useAuthContext';
-import { useProjectContext } from '../hooks/useProjectContext';
+// import { useProjectContext } from '../hooks/useProjectContext';
+import { useFormContext } from '../hooks/useFormContext';
 
 
 const Header = () => {
 	const {user} = useAuthContext();
 	const {logout} = useLogout();
 
-	const {setActiveProject} = useProjectContext();
+	const {setActiveProject} = useFormContext();
 
 	const handleClick = () => {
 		setActiveProject("")
