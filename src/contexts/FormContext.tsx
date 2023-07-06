@@ -1,14 +1,13 @@
 import { createContext, useState } from 'react';
 
-// Hooks
-import { useProjectContext } from '../hooks/useProjectContext';
-import { useTaskContext } from '../hooks/useTaskContext';
+import { ProjectType } from '../types/project';
+import { TaskType } from '../types/task';
 
-type ProjectForm = {
+export type ProjectForm = {
 	title:string
 }
 
-type TaskForm = {
+export type TaskForm = {
 	title:string,
 	dueDate:string,
 	priority:string,
@@ -27,9 +26,13 @@ type FormContextType = {
 	handleProjectForm: (event:React.ChangeEvent<any>) => void
 	handleTaskForm: (event:React.ChangeEvent<any>) => void
 	toggleAddProjectForm: (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void
-	toggleEditProjectForm: (e:React.MouseEvent<any>, _id:string, title:string) => void
+	toggleEditProjectForm: (e:React.MouseEvent<any>, project:ProjectType | null) => void
 	toggleAddTaskForm: (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void
-	toggleEditTaskForm: (e:React.MouseEvent<any>, _id:string, title:string, dueDate:string, priority:string, description:string) => void
+	toggleEditTaskForm: (e:React.MouseEvent<any>, task:TaskType | null) => void
+	activeProject: string
+	setActiveProject: React.Dispatch<React.SetStateAction<string>>
+	activeTask: string
+	setActiveTask: React.Dispatch<React.SetStateAction<string>>
 }
 
 type FormContextProviderProps = {
@@ -42,24 +45,25 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 	const [addProjectFormState, setAddProjectFormState] = useState(false);
 	const [editProjectFormState, setEditProjectFormState] = useState(false);
 	const [projectForm, setProjectForm] = useState({title:''})
-	const {activeProject, setActiveProject} = useProjectContext()
+
+	const [activeProject, setActiveProject] = useState('')
+
+	const [activeTask, setActiveTask] = useState('')
 
 	const [addTaskFormState, setAddTaskFormState] = useState(false);
 	const [editTaskFormState, setEditTaskFormState] = useState(false);
 	const [taskForm, setTaskForm] = useState({title:'', dueDate:'', priority:'P1', description:''})
-	const {setActiveTask} = useTaskContext()
 
 	const toggleAddProjectForm = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
 		e.preventDefault();
 		setAddProjectFormState(prevState => {return !prevState})
 	}
 
-	const toggleEditProjectForm = (e:React.MouseEvent<any>, _id:string, title:string) => {
+	const toggleEditProjectForm = (e:React.MouseEvent<any>, project:ProjectType | null) => {
 		e.preventDefault();
 		setEditProjectFormState(prevState => {return !prevState});
-		setActiveProject(_id);
-		setProjectForm({title:title})
-		console.log(activeProject);
+		setActiveProject(project?._id || '');
+		setProjectForm({title:project?.title || ''})
 	}
 
 	const handleProjectForm = (event:React.ChangeEvent<any>) => {
@@ -77,11 +81,11 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 		setAddTaskFormState(prevState => {return !prevState})
 	}
 
-	const toggleEditTaskForm = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>, _id:string, title:string, dueDate:string, priority:string, description:string) => {
+	const toggleEditTaskForm = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>, task:TaskType | null) => {
 		e.stopPropagation();
-		setActiveTask(_id);
+		setActiveTask(task?._id || '');
 		setEditTaskFormState(prevState => {return !prevState});
-		setTaskForm({title:title, dueDate:dueDate, priority:priority, description:description})
+		setTaskForm({title:task?.title || '', dueDate:task?.dueDate || '', priority:task?.priority || '', description:task?.description || ''})
 	}
 
 	const handleTaskForm = (event:React.ChangeEvent<any>) => {
@@ -104,15 +108,17 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 					setProjectForm, 
 					editProjectFormState, 
 					toggleEditProjectForm, 
-
-
 					taskForm,
 					addTaskFormState, 
 					toggleAddTaskForm,
 					handleTaskForm,
 					setTaskForm,
 					editTaskFormState,
-					toggleEditTaskForm
+					toggleEditTaskForm,
+					activeProject,
+					setActiveProject,
+					activeTask,
+					setActiveTask
 					}
 				}>
 			{children}

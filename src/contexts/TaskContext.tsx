@@ -39,7 +39,7 @@ export const TaskContextProvider = (({children}: TaskContextProviderProps) => {
 		tasks:null
 	})
 
-	const [activeTask, setActiveTask] = useState('')
+
 	const [taskOpen, setTaskOpen] = useState(false);
 
 	const [selectedTask, setSelectedTask] =  useState<TaskType>();
@@ -53,7 +53,7 @@ export const TaskContextProvider = (({children}: TaskContextProviderProps) => {
 	}
 
 	return(
-		<TaskContext.Provider value={{...state, dispatch, activeTask, setActiveTask, toggleTaskView, taskOpen, selectedTask}}>
+		<TaskContext.Provider value={{...state, dispatch, toggleTaskView, taskOpen, selectedTask}}>
 			{children}
 		</TaskContext.Provider>
 	)
