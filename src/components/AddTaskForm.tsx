@@ -1,40 +1,25 @@
 import { useFormContext } from "../hooks/useFormContext"
-import { useProjectContext } from "../hooks/useProjectContext";
-import { useTaskContext } from "../hooks/useTaskContext";
+import { useAddTaskMutation } from "../store";
 
-
-
-const domainName = import.meta.env.VITE_DOMAIN_NAME;
 const AddTaskForm = () => {	
-	const {toggleAddTaskForm, taskForm, handleTaskForm, setTaskForm} = useFormContext();
-
-	const {activeProject} = useProjectContext();
-
-	const {dispatch} = useTaskContext();
+	const {toggleAddTaskForm, taskForm, handleTaskForm, setTaskForm, activeProject} = useFormContext();
 
 
-	const createTask = async(e:React.MouseEvent<HTMLButtonElement>) => {
+
+	const [addTask, results] = useAddTaskMutation()
+
+
+	const handleTaskAdd = (e:React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		const title = taskForm.title;
-		const dueDate = taskForm.dueDate;
-		const priority = taskForm.priority;
-		const description = taskForm.description;
+		addTask({activeProject, formData:taskForm})
 
-		const response = await fetch(`${domainName}/api/projects/${activeProject}/tasks`,{
-			method:'POST',
-			headers:{'Content-type': 'application/json'},
-			body:JSON.stringify({title, dueDate, priority, description})
-		});
-
-		const json = await response.json();
-
-		if(response.ok){
-			toggleAddTaskForm(e)
-			dispatch({type:'CREATE_TASK', payload:json})
+		if(!results.error){
 			setTaskForm({title:'', dueDate:'', priority:'P1'})
+			toggleAddTaskForm(e)
 		}
-
 	}
+
+
 	return (
 		<div className="fixed top-0 flex items-center justify-center w-full h-screen">
 			<div className="w-[100%] fixed top-0 h-screen bg-black opacity-40" onClick={(e) => toggleAddTaskForm(e)}></div>
@@ -72,7 +57,7 @@ const AddTaskForm = () => {
 				<textarea className="p-[10px] bg-slate-700 placeholder:font-bold placeholder:text-gray-300" name="description" id="description" cols={30} rows={10} value={taskForm.description} onChange={(e) =>handleTaskForm(e)}  placeholder="Add a Description (optional)"/>
 				
 				<div className="flex items-center gap-[20px]">
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={createTask}>Add Task</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={handleTaskAdd}>Add Task</button>
 					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={(e) => toggleAddTaskForm(e)}>Cancel</button>
 				</div>
 			</form>

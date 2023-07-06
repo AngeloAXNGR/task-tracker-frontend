@@ -12,24 +12,22 @@ import { useFormContext } from '../hooks/useFormContext';
 import { parseDate } from '../utils/date';
 
 
+import { useRemoveTaskMutation } from '../store';
 
-const domainName = import.meta.env.VITE_DOMAIN_NAME;
-const Task = ({_id, title, dueDate, priority, description}:TaskType) => {
+
+type TaskPropsType = {
+	task: TaskType
+}
+
+const Task = ({task}:TaskPropsType) => {
+	const [removeTask] = useRemoveTaskMutation();
 
 	const {dispatch, toggleTaskView} = useTaskContext();
 	const {toggleEditTaskForm} = useFormContext()
 
-	const deleteTask = async(e:React.MouseEvent<HTMLDivElement>) => {
+	const handleRemoveTask = (e:React.MouseEvent<HTMLDivElement>) => {
 		e.stopPropagation();
-		const response = await fetch(`${domainName}/api/tasks/${_id}`, {
-			method:'DELETE'
-		})
-
-		const json = await response.json();
-
-		if(response.ok){
-			dispatch({type: 'DELETE_TASK', payload:json})
-		}
+		removeTask({task})
 	}
 
 	const priorityColors:any = {
@@ -44,22 +42,22 @@ const Task = ({_id, title, dueDate, priority, description}:TaskType) => {
 		Tomorrow: 'text-yellow-300',
 	}
 
-	const priorityColor = priorityColors[priority] || 'border-white';
+	const priorityColor = priorityColors[task.priority] || 'border-white';
 
-	const dueDateString = dueDateStrings[parseDate(dueDate)] || 'text-white';
+	const dueDateString = dueDateStrings[parseDate(task.dueDate)] || 'text-white';
 
 	return (
-		<div className="flex items-start justify-between w-[80%] text-white p-[10px] hover:bg-slate-500 cursor-pointer border-b-[1px] border-slate-500 transition-bg duration-150" onClick={(e) => toggleTaskView(e, _id)}>
+		<div className="flex items-start justify-between w-[80%] text-white p-[10px] hover:bg-slate-500 cursor-pointer border-b-[1px] border-slate-500 transition-bg duration-150" onClick={(e) => toggleTaskView(e, task._id)}>
 			<div className="flex items-start gap-[5px]">
-				<div className={`border-2 ${priorityColor} h-[20px] w-[20px] rounded-full hover:bg-white cursor-pointer`} onClick={(e) => deleteTask(e)}></div>
+				<div className={`border-2 ${priorityColor} h-[20px] w-[20px] rounded-full hover:bg-white cursor-pointer`} onClick={(e) => handleRemoveTask(e)}></div>
 				<div className="flex flex-col">
-					<h1 className="mt-[-2px]">{title}</h1>
-					<h1 className={dueDateString}>{parseDate(dueDate)}</h1>
+					<h1 className="mt-[-2px]">{task.title}</h1>
+					<h1 className={dueDateString}>{parseDate(task.dueDate)}</h1>
 				</div>
 			</div>
 
 			<div className="cursor-pointer">
-				<MdModeEditOutline onClick={(e:React.MouseEvent<any>) => toggleEditTaskForm(e,_id, title, dueDate, priority, description)}/>
+				<MdModeEditOutline onClick={(e:React.MouseEvent<any>) => toggleEditTaskForm(e, task)}/>
 			</div>
 		</div>
 	)

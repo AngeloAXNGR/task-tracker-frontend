@@ -1,41 +1,28 @@
 import { useFormContext } from "../hooks/useFormContext";
-import { useTaskContext } from "../hooks/useTaskContext";
 
 
-const domainName = import.meta.env.VITE_DOMAIN_NAME;
+// Redux API endpoint hooks
+import { useUpdateTaskMutation } from "../store";
+
 const EditTaskForm = () => {
-	const { toggleEditTaskForm, taskForm, handleTaskForm, setTaskForm } = useFormContext();
+	const { toggleEditTaskForm, taskForm, handleTaskForm, setTaskForm, activeTask } = useFormContext();
 
+	const [updateTask, results] = useUpdateTaskMutation();
 
-	const { dispatch, activeTask } = useTaskContext();
-
-	console.log(taskForm);
-
-	const updateTask = async (e: React.MouseEvent<HTMLButtonElement>) => {
+	const handleUpdateTask = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		const title = taskForm.title;
-		const dueDate = taskForm.dueDate;
-		const priority = taskForm.priority;
-		const description = taskForm.description;
+		updateTask({taskId:activeTask, formData:taskForm})
 
-		const response = await fetch(`${domainName}/api/tasks/${activeTask}`, {
-			method: 'PATCH',
-			headers: { 'Content-type': 'application/json' },
-			body: JSON.stringify({ title, dueDate, priority, description })
-		});
-
-		const json = await response.json();
-
-		if (response.ok) {
-			toggleEditTaskForm(e, '', '', '', '', '')
-			dispatch({ type: 'UPDATE_TASK', payload: { ...json, title: title, dueDate: dueDate, priority: priority, description: description } })
+		if(!results.error){
+			toggleEditTaskForm(e, null)
 			setTaskForm({ title: '', dueDate: '', priority: 'P1' })
 		}
-
 	}
+
+
 	return (
 		<div className="fixed top-0 flex items-center justify-center w-full h-screen">
-				<div className="w-[100%] fixed top-0 h-screen bg-black opacity-40" onClick={(e) => toggleEditTaskForm(e, '','','','','')}></div>
+				<div className="w-[100%] fixed top-0 h-screen bg-black opacity-40" onClick={(e) => toggleEditTaskForm(e, null)}></div>
 				<form action="" className="text-white h-[520px] max-h-[100%] bg-slate-800 w-[620px] overflow-auto flex flex-col gap-[20px] p-[30px] pt-[10px] rounded-xl relative z-10 font-bold">
 				<h1 className="text-4xl font-bold">Update Task</h1>
 				<label htmlFor="title" className="text-xl font-bold hidden">Title:</label>
@@ -70,8 +57,8 @@ const EditTaskForm = () => {
 				<textarea className="p-[10px] bg-slate-700 placeholder:font-bold placeholder:text-gray-300" name="description" id="description" cols={30} rows={10} value={taskForm.description} onChange={(e) =>handleTaskForm(e)}  placeholder="Add a Description (optional)"/>
 				
 				<div className="flex items-center gap-[20px]">
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={updateTask}>Update Task</button>
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={(e) => toggleEditTaskForm(e,'','','','','')}>Cancel</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={handleUpdateTask}>Update Task</button>
+					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={(e) => toggleEditTaskForm(e,null)}>Cancel</button>
 				</div>
 				</form>
 		</div>

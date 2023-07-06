@@ -3,51 +3,39 @@ import { MdModeEditOutline } from 'react-icons/md';
 
 // Types
 import { ProjectType } from "../types/project"
+export type ProjectPropsType = {
+	project: ProjectType
+}
 
 // Hooks
-import { useProjectContext } from '../hooks/useProjectContext';
 import { useFormContext } from '../hooks/useFormContext';
-import { useTaskContext } from '../hooks/useTaskContext';
+// import { useTaskContext } from '../hooks/useTaskContext';
 import useAuthContext from '../hooks/useAuthContext';
 
+// Redux projectApi Endpoint Hooks
+import { useRemoveProjectMutation } from '../store';
 
-const domainName = import.meta.env.VITE_DOMAIN_NAME;
-const Project = ({_id, title}: ProjectType) => {
-	const {dispatch,activeProject,setActiveProject} = useProjectContext();
-	const {dispatch:taskDispatch} = useTaskContext()
+const Project = ({project}: ProjectPropsType) => {
 	const {user} = useAuthContext()
+	const [removeProject, results] = useRemoveProjectMutation();
+	const {toggleEditProjectForm, activeProject, setActiveProject} = useFormContext()
 
-	const {toggleEditProjectForm} = useFormContext()
-
-	const deleteProject = async(e:React.MouseEvent<HTMLOrSVGElement>) => {
+	const handleRemoveProject = async(e:React.MouseEvent<HTMLOrSVGElement>) => {
 		e.stopPropagation();
-		const response = await fetch(`${domainName}/api/projects/${_id}`, {
-			method:'DELETE',
-			headers:{
-				'Authorization': `Bearer ${user.token}`
-			}
-		}) 
+		removeProject({user, project})
 
-		const json = await response.json()
-
-		if(response.ok){
-			dispatch({type:'DELETE_PROJECT', payload:json})
-
-			
-			
-			if(activeProject === _id){
-				// Render nothing in the task pane if an active project has been deleted
-				taskDispatch({type:'SET_TASKS', payload:null})
-			}
+		if(!results.error){
+			setActiveProject('');
 		}
 	}
 
+
 	return (
-		<div className={`flex px-[10px] py-[5px] rounded-md text-white ${activeProject === _id ? 'bg-slate-500' : 'bg-slate-800' } cursor-pointer items-center justify-between `} onClick={() => setActiveProject(_id)}>
-			<h2>{title}</h2>
+		<div className={`flex px-[10px] py-[5px] rounded-md text-white ${activeProject === project._id ? 'bg-slate-500' : 'bg-slate-800' } cursor-pointer items-center justify-between `} onClick={() => setActiveProject(project._id)}>
+			<h2>{project.title}</h2>
 			<div className="flex items-center gap-[10px]">
-				<MdModeEditOutline onClick={(e:React.MouseEvent<any>) => toggleEditProjectForm(e, _id, title)}/>
-				<BsFillTrash3Fill onClick={(e:React.MouseEvent<HTMLOrSVGElement>) => deleteProject(e)}/>
+				<MdModeEditOutline onClick={(e:React.MouseEvent<any>) => toggleEditProjectForm(e, project)}/>
+				<BsFillTrash3Fill onClick={(e:React.MouseEvent<HTMLOrSVGElement>) => handleRemoveProject(e)}/>
 			</div>
 		</div>
 	)
