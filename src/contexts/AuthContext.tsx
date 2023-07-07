@@ -1,20 +1,10 @@
 import {createContext, useReducer, useEffect} from 'react';
-
 import Cookies from 'universal-cookie';
 
-type AuthContextType = {
-	user:any,
-	dispatch: any
-}
+// Types
+import { AuthContextType, AuthAction, AuthContextProviderProps } from '../types/auth';
 
-type AuthAction = {
-	type:string,
-	payload: any
-}
 
-type AuthContextProviderProps = {
-	children: React.ReactNode
-}
 
 export const AuthContext = createContext({} as AuthContextType)
 

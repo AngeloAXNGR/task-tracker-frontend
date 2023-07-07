@@ -2,19 +2,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const domainName = import.meta.env.VITE_DOMAIN_NAME;
 
 // Types
-import { ProjectForm } from '../../contexts/FormContext';
-import { ProjectType } from '../../types/project';
-export type UserType = {
-	email:string,
-	token:string
-}
+import { ProjectType, ProjectApiEndpointArgs } from '../../types/project';
+import { UserType } from '../../types/auth';
 
-type ProjectEndpointArgsType = {
-	user:UserType
-	formData?:ProjectForm
-	project?:ProjectType
-	projectId?: string
-}
 
 const projectsApi = createApi({
 	reducerPath: 'projects',
@@ -45,7 +35,7 @@ const projectsApi = createApi({
 
 			addProject: builder.mutation({
 				invalidatesTags: [{type:'UserProjects'}],
-				query:({user, formData}:ProjectEndpointArgsType) => {
+				query:({user, formData}:ProjectApiEndpointArgs) => {
 					return{
 						url:'/api/projects',
 						method:'POST',
@@ -60,10 +50,10 @@ const projectsApi = createApi({
 			}),
 
 			removeProject: builder.mutation({
-				invalidatesTags:(result, error, {project}:ProjectEndpointArgsType) => {
+				invalidatesTags:(result, error, {project}:ProjectApiEndpointArgs) => {
 					return [{type:'Project', id:project?._id}]
 				},
-				query:({user,project}:ProjectEndpointArgsType) => {
+				query:({user,project}:ProjectApiEndpointArgs) => {
 					return{
 						url: `/api/projects/${project?._id}`,
 						method:'DELETE',
@@ -75,10 +65,10 @@ const projectsApi = createApi({
 			}),
 
 			updateProject: builder.mutation({
-				invalidatesTags:(result, error, {project}:ProjectEndpointArgsType) => {
+				invalidatesTags:(result, error, {project}:ProjectApiEndpointArgs) => {
 					return [{type:'Project', id:project?._id}]
 				},
-				query:({user,projectId, formData}:ProjectEndpointArgsType) => {
+				query:({user,projectId, formData}:ProjectApiEndpointArgs) => {
 					return{
 						url: `/api/projects/${projectId}`,
 						method:'PATCH',

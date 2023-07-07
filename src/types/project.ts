@@ -1,3 +1,5 @@
+import { UserType } from "./auth"
+
 export type ProjectType = {
 	_id:string,
 	title:string,
@@ -5,20 +7,14 @@ export type ProjectType = {
 	updatedAt?:string
 }
 
-
-export type ProjectContextType = {
- projects:ProjectType[],
- dispatch:any,
- activeProject: string,
- setActiveProject: React.Dispatch<React.SetStateAction<string>>
+export type ProjectForm = {
+	title:string
 }
 
 
-export type ProjectContextProviderProps = {
-	children:React.ReactNode;
-}
-
-export type ProjectAction = {
-	type:string,
-	payload:ProjectType
+export type ProjectApiEndpointArgs = {
+	user:UserType
+	formData?:ProjectForm
+	project?:ProjectType
+	projectId?: string
 }

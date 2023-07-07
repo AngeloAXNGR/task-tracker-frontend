@@ -1,8 +1,7 @@
 import {createContext, useReducer, useState} from 'react';
 
-import {TaskContextType, TaskContextProviderProps, TaskAction, TaskType } from '../types/task';
-
-
+// Types
+import { TaskType, TaskContextType, TaskContextProviderProps, TaskAction  } from '../types/task';
 
 export const TaskContext = createContext({} as TaskContextType)
 

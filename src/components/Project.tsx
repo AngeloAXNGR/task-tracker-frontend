@@ -1,12 +1,6 @@
 import { BsFillTrash3Fill } from 'react-icons/bs';
 import { MdModeEditOutline } from 'react-icons/md';
 
-// Types
-import { ProjectType } from "../types/project"
-export type ProjectPropsType = {
-	project: ProjectType
-}
-
 // Hooks
 import { useFormContext } from '../hooks/useFormContext';
 // import { useTaskContext } from '../hooks/useTaskContext';
@@ -15,7 +9,10 @@ import useAuthContext from '../hooks/useAuthContext';
 // Redux projectApi Endpoint Hooks
 import { useRemoveProjectMutation } from '../store';
 
-const Project = ({project}: ProjectPropsType) => {
+// Types
+import { ProjectType } from '../types/project';
+
+const Project = ({...project}: ProjectType) => {
 	const {user} = useAuthContext()
 	const [removeProject, results] = useRemoveProjectMutation();
 	const {toggleEditProjectForm, activeProject, setActiveProject} = useFormContext()

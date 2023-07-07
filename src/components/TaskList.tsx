@@ -8,9 +8,8 @@ import { useFormContext } from "../hooks/useFormContext"
 // Components
 import Task from "./Task"
 
-// Types 
+// Types
 import { TaskType } from "../types/task"
-
 
 const TaskList = () => {
 	const {user} = useAuthContext();
@@ -27,7 +26,7 @@ const TaskList = () => {
 			return(
 				<Task
 					key={task._id}
-					task={task}
+					{...task}
 				/>
 			)
 		})

@@ -1,6 +1,3 @@
-// Types
-import { TaskType } from "../types/task"
-
 import { ReactMarkdown } from "react-markdown/lib/react-markdown"
 
 // Hooks
@@ -11,6 +8,9 @@ import { parseDate } from "../utils/date"
 
 // React-Icons
 import {AiFillCloseCircle} from 'react-icons/ai';
+
+// Types
+import { TaskType } from "../types/task";
 
 const ViewTask = ({_id, title, dueDate, priority, description}:TaskType) => {
 

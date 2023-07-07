@@ -1,8 +1,6 @@
 // React Icons
 import { MdModeEditOutline } from 'react-icons/md';
 
-// Types
-import { TaskType } from "../types/task"
 
 // Hooks
 import { useTaskContext } from '../hooks/useTaskContext';
@@ -11,15 +9,13 @@ import { useFormContext } from '../hooks/useFormContext';
 // Utils
 import { parseDate } from '../utils/date';
 
-
 import { useRemoveTaskMutation } from '../store';
 
+// Types
+import { TaskType } from '../types/task';
 
-type TaskPropsType = {
-	task: TaskType
-}
 
-const Task = ({task}:TaskPropsType) => {
+const Task = ({...task}:TaskType) => {
 	const [removeTask] = useRemoveTaskMutation();
 
 	const {dispatch, toggleTaskView} = useTaskContext();

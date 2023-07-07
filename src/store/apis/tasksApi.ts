@@ -3,17 +3,7 @@ const domainName = import.meta.env.VITE_DOMAIN_NAME;
 
 
 // Types 
-import { UserType } from './projectsApi';
-import { TaskType } from '../../types/task';
-import { TaskForm } from '../../contexts/FormContext';
-
-type TaskEndpointsArgsType = {
-	user?:UserType,
-	task?:TaskType,
-	activeProject?: string,
-	formData?: TaskForm,
-	taskId?: string
-}
+import { TaskEndpointsArgs } from '../../types/task';
 
 const tasksApi = createApi({
 	reducerPath: 'Tasks',
@@ -25,7 +15,7 @@ const tasksApi = createApi({
 		return{
 			fetchTasks: builder.query({
 				providesTags: ['Task'],
-				query: ({user, activeProject}:TaskEndpointsArgsType) => {
+				query: ({user, activeProject}:TaskEndpointsArgs) => {
 					return{
 						url:`/api/projects/${activeProject}/tasks`,
 						method:'GET',
@@ -38,7 +28,7 @@ const tasksApi = createApi({
 
 			addTask: builder.mutation({
 				invalidatesTags: ['Task'],
-				query: ({activeProject, formData}:TaskEndpointsArgsType) => {
+				query: ({activeProject, formData}:TaskEndpointsArgs) => {
 					return{
 						url:`/api/projects/${activeProject}/tasks`,
 						method:'POST',
@@ -54,7 +44,7 @@ const tasksApi = createApi({
 
 			removeTask: builder.mutation({
 				invalidatesTags: ['Task'],
-				query: ({task}:TaskEndpointsArgsType) => {
+				query: ({task}:TaskEndpointsArgs) => {
 					return{
 						url: `/api/tasks/${task!._id}`,
 						method:'DELETE'
@@ -64,7 +54,7 @@ const tasksApi = createApi({
 
 			updateTask: builder.mutation({
 				invalidatesTags: ['Task'],
-				query: ({taskId, formData}:TaskEndpointsArgsType) => {
+				query: ({taskId, formData}:TaskEndpointsArgs) => {
 					return{
 						url: `/api/tasks/${taskId}`,
 						method: 'PATCH',

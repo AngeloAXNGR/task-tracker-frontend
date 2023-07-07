@@ -30,7 +30,7 @@ const ProjectList = () => {
 		return(
 			<Project 
 				key={project._id}
-				project={project}
+				{...project}
 			/>
 		)
 	})
