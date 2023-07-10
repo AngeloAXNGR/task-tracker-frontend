@@ -1,9 +1,7 @@
 // React Icons
 import { MdModeEditOutline } from 'react-icons/md';
 
-
 // Hooks
-import { useTaskContext } from '../hooks/useTaskContext';
 import { useFormContext } from '../hooks/useFormContext';
 
 // Utils
@@ -18,8 +16,7 @@ import { TaskType } from '../types/task';
 const Task = ({...task}:TaskType) => {
 	const [removeTask] = useRemoveTaskMutation();
 
-	const {dispatch, toggleTaskView} = useTaskContext();
-	const {toggleEditTaskForm} = useFormContext()
+	const {toggleEditTaskForm, toggleViewTaskForm} = useFormContext()
 
 	const handleRemoveTask = (e:React.MouseEvent<HTMLDivElement>) => {
 		e.stopPropagation();
@@ -43,7 +40,7 @@ const Task = ({...task}:TaskType) => {
 	const dueDateString = dueDateStrings[parseDate(task.dueDate)] || 'text-white';
 
 	return (
-		<div className="flex items-start justify-between w-[80%] text-white p-[10px] hover:bg-slate-500 cursor-pointer border-b-[1px] border-slate-500 transition-bg duration-150" onClick={(e) => toggleTaskView(e, task._id)}>
+		<div className="flex items-start justify-between w-[80%] text-white p-[10px] hover:bg-slate-500 cursor-pointer border-b-[1px] border-slate-500 transition-bg duration-150" onClick={(e) => toggleViewTaskForm(e, task)}>
 			<div className="flex items-start gap-[5px]">
 				<div className={`border-2 ${priorityColor} h-[20px] w-[20px] rounded-full hover:bg-white cursor-pointer`} onClick={(e) => handleRemoveTask(e)}></div>
 				<div className="flex flex-col">

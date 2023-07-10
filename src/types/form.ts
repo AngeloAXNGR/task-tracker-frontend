@@ -6,6 +6,7 @@ export type FormContextType = {
 	editProjectFormState: boolean;
 	addTaskFormState:boolean;
 	editTaskFormState:boolean;
+	viewTaskFormState:boolean;
 	projectForm:ProjectForm;
 	taskForm:TaskForm;
 	setProjectForm: React.Dispatch<React.SetStateAction<any>>
@@ -16,6 +17,7 @@ export type FormContextType = {
 	toggleEditProjectForm: (e:React.MouseEvent<any>, project:ProjectType | null) => void
 	toggleAddTaskForm: (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void
 	toggleEditTaskForm: (e:React.MouseEvent<any>, task:TaskType | null) => void
+	toggleViewTaskForm: (e:React.MouseEvent<any>, task:TaskType | null) => void
 	activeProject: string
 	setActiveProject: React.Dispatch<React.SetStateAction<string>>
 	activeTask: string

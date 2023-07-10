@@ -14,29 +14,17 @@ import EditProjectForm from "../components/EditProjectForm";
 
 
 const Home = () => {
-	const {addProjectFormState, editProjectFormState, addTaskFormState, editTaskFormState} = useFormContext();
-	// const {tasks,dispatch, selectedTask, taskOpen} = useTaskContext();
-
+	const {addProjectFormState, editProjectFormState, addTaskFormState, editTaskFormState, viewTaskFormState} = useFormContext();
 
 	return (
 		<div className="flex justify-between">
 			<ProjectList/>
 			<TaskList/>
-
-
 			{editTaskFormState && <EditTaskForm/>}
 			{addTaskFormState && <AddTaskForm/>}
 			{addProjectFormState && <AddProjectForm/> }
 			{editProjectFormState && <EditProjectForm/>}
-			{/* {taskOpen &&
-				<ViewTask
-					_id={selectedTask._id}
-					title={selectedTask.title}
-					dueDate={selectedTask.dueDate}
-					priority={selectedTask.priority}
-					description={selectedTask.description}
-				/>
-			} */}
+			{viewTaskFormState && <ViewTask/>}
 		</div>
 	)
 }

@@ -18,6 +18,7 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 
 	const [addTaskFormState, setAddTaskFormState] = useState(false);
 	const [editTaskFormState, setEditTaskFormState] = useState(false);
+	const [viewTaskFormState, setViewTaskFormState] = useState(false);
 	const [taskForm, setTaskForm] = useState({title:'', dueDate:'', priority:'P1', description:''})
 
 	const toggleAddProjectForm = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
@@ -54,6 +55,14 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 		setTaskForm({title:task?.title || '', dueDate:task?.dueDate || '', priority:task?.priority || '', description:task?.description || ''})
 	}
 
+
+	const toggleViewTaskForm = (e:React.MouseEvent<HTMLButtonElement | HTMLDivElement>, task:TaskType | null) => {
+		e.stopPropagation();
+		setActiveTask(task?._id || '');
+		setViewTaskFormState(prevState => {return !prevState});
+		setTaskForm({title:task?.title || '', dueDate:task?.dueDate || '', priority:task?.priority || '', description:task?.description || ''})
+	}
+
 	const handleTaskForm = (event:React.ChangeEvent<any>) => {
 		const {name, value} = event.target
 		setTaskForm((prevData:any) => {
@@ -80,7 +89,9 @@ export const FormContextProvider = (({children}:FormContextProviderProps) => {
 					handleTaskForm,
 					setTaskForm,
 					editTaskFormState,
+					viewTaskFormState,
 					toggleEditTaskForm,
+					toggleViewTaskForm,
 					activeProject,
 					setActiveProject,
 					activeTask,
