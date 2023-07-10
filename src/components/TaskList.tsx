@@ -7,6 +7,7 @@ import { useFormContext } from "../hooks/useFormContext"
 
 // Components
 import Task from "./Task"
+import Button from "./Button"
 
 // Types
 import { TaskType } from "../types/task"
@@ -35,7 +36,7 @@ const TaskList = () => {
 	return (
 			<div className="w-0 sm:w-[100%] flex flex-col items-center pt-[20px]">
 				{data && 
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 hover:bg-slate-500 transition-bg duration-150 mb-[20px]" onClick={(e) => toggleAddTaskForm(e)}>Add Task</button>
+					<Button className="max-w-[150px] mb-[20px] hover:bg-slate-500" onClick={(e:any) => toggleAddTaskForm(e)}>Add Task</Button>
 				}
 
 				{content}

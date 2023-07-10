@@ -4,6 +4,9 @@ import useAuthContext from "../hooks/useAuthContext";
 // Redux projectApi Endpoint Hooks
 import { useAddProjectMutation } from "../store";
 
+// Components
+import Button from "./Button";
+
 const AddProjectForm = () => {
 	const {toggleAddProjectForm, projectForm, handleProjectForm, setProjectForm} = useFormContext();
 	const {user} = useAuthContext();
@@ -35,8 +38,8 @@ const AddProjectForm = () => {
 					placeholder="Title"
 				/>
 				<div className="flex items-center gap-[20px]">
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={(e) => handleProjectAdd(e)}>Add Project</button>
-					<button className="px-[10px] py-[5px] rounded-md font-bold text-white bg-slate-600 w-[100%] hover:bg-slate-500 transition-bg duration-150" onClick={(e) => toggleAddProjectForm(e)}>Cancel</button>
+					<Button primary onClick={(e:any) => handleProjectAdd(e)}>Add Project</Button>
+					<Button danger  onClick={(e:any) => toggleAddProjectForm(e)}>Cancel</Button>
 				</div>
 			</form>
 		</div>
