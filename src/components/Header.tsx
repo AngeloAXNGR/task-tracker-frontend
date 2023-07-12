@@ -3,20 +3,21 @@ import {Link} from 'react-router-dom';
 // Hooks
 import { useLogout } from '../hooks/useLogout';
 import useAuthContext from '../hooks/useAuthContext';
-// import { useProjectContext } from '../hooks/useProjectContext';
-import { useFormContext } from '../hooks/useFormContext';
 
+// Redux
+import { useDispatch } from 'react-redux';
+import { changeActiveProject } from '../store';
 
 const Header = () => {
 	const {user} = useAuthContext();
 	const {logout} = useLogout();
-
-	const {setActiveProject} = useFormContext();
+	const dispatch = useDispatch();
 
 	const handleClick = () => {
-		setActiveProject("")
+		dispatch(changeActiveProject(""))
 		logout();
 	}
+	
 	return (
 		<div className="flex items-center justify-between px-[20px] py-[10px] bg-slate-950 ">
 			<Link to="/" className="text-white text-3xl font-bold">Task Tracker</Link>

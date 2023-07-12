@@ -1,9 +1,12 @@
+// Redux Hooks
+import { useSelector, useDispatch } from "react-redux"
+import { toggleAddTaskForm } from "../store"
+
 // Redux API Endpoint Hooks
 import { useFetchTasksQuery } from "../store"
 
 // Custom Hooks
 import useAuthContext from "../hooks/useAuthContext"
-import { useFormContext } from "../hooks/useFormContext"
 
 // Components
 import Task from "./Task"
@@ -14,7 +17,14 @@ import { TaskType } from "../types/task"
 
 const TaskList = () => {
 	const {user} = useAuthContext();
-	const {activeProject, toggleAddTaskForm} = useFormContext();
+
+	const dispatch = useDispatch();
+
+	const {activeProject} = useSelector(({projectForm}) => {
+		return{
+			activeProject: projectForm.activeProject
+		}
+	})
 
 	const {data, isLoading} = useFetchTasksQuery({user, activeProject})
 
@@ -36,7 +46,7 @@ const TaskList = () => {
 	return (
 			<div className="w-0 sm:w-[100%] flex flex-col items-center pt-[20px]">
 				{data && 
-					<Button className="max-w-[150px] mb-[20px] hover:bg-slate-500" onClick={(e:any) => toggleAddTaskForm(e)}>Add Task</Button>
+					<Button className="max-w-[150px] mb-[20px] hover:bg-slate-500" onClick={() => dispatch(toggleAddTaskForm(true))}>Add Task</Button>
 				}
 
 				{content}

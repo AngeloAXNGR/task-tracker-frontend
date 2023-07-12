@@ -7,18 +7,15 @@ import { Provider } from 'react-redux';
 import { store } from './store/index.ts'
 
 // Context Provider
-import { FormContextProvider } from './contexts/FormContext.tsx'
 import { AuthContextProvider } from './contexts/AuthContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthContextProvider>
-        <FormContextProvider>
-          <Provider store={store}>
-            <App />
-          </Provider>
-        </FormContextProvider>
+        <Provider store={store}>
+          <App />
+        </Provider>
       </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>,
