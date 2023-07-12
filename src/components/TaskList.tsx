@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react"
+
 // Redux Hooks
 import { useSelector, useDispatch } from "react-redux"
 import { toggleAddTaskForm } from "../store"
@@ -17,16 +19,23 @@ import { TaskType } from "../types/task"
 
 const TaskList = () => {
 	const {user} = useAuthContext();
-
 	const dispatch = useDispatch();
-
+	const [skip, setSkip] = useState(true);
 	const {activeProject} = useSelector(({projectForm}) => {
 		return{
 			activeProject: projectForm.activeProject
 		}
 	})
 
-	const {data, isLoading} = useFetchTasksQuery({user, activeProject})
+	useEffect(() => {
+		if(activeProject === ""){
+			setSkip(true)
+		}else {
+			setSkip(false)
+		}
+	},[activeProject])
+
+	const {data, isLoading} = useFetchTasksQuery({user, activeProject}, {skip})
 
 	let content;
 
