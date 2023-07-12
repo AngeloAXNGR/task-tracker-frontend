@@ -6,7 +6,8 @@ import { changeActiveProject, changeProjecTitle, toggleEditProjectForm, useUpdat
 
 // Components
 import Button from "./Button";
-import React from "react";
+import Modal from "./Modal";
+
 
 const EditProjectForm = () => {
 	const {user} = useAuthContext()
@@ -35,14 +36,13 @@ const EditProjectForm = () => {
 	} 
 	
 	return (
-		<div className="fixed top-0 flex items-center justify-center w-full h-screen">
-			<div className="w-[100%] fixed top-0 h-screen bg-black opacity-40" onClick={() => dispatch(toggleEditProjectForm(false))}></div>
+		<Modal onClick={() => dispatch(toggleEditProjectForm(false))}>
 			<form action="" className="text-white bg-slate-800 absolute mx-auto left-0 right-0 max-w-[320px] flex flex-col p-[30px] rounded-lg gap-[20px] font-bold">
 				<h1 className="text-4xl font-bold">Update Project</h1>
 				<label htmlFor="title" className="text-xl font-bold hidden">Title:</label>
-				<input 
+				<input
 					className="bg-slate-700 rounded-lg py-[5px] px-[10px] placeholder:text-gray-300 placeholder:font-bold"
-					type="text" 
+					type="text"
 					id="title"
 					name="title"
 					value={title}
@@ -54,7 +54,7 @@ const EditProjectForm = () => {
 					<Button danger onClick={() => dispatch(toggleEditProjectForm(false))}>Cancel</Button>
 				</div>
 			</form>
-		</div>
+		</Modal>
 	)
 }
 
