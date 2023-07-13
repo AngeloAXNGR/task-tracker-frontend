@@ -15,7 +15,7 @@ const projectsApi = createApi({
 	endpoints(builder){
 		return{
 			fetchProjects: builder.query({
-				providesTags: (result, error, args) => {
+				providesTags: (result, _error, _args) => {
 					const tags = result.map((project:ProjectType) => {
 						return {type: 'Project', id: project._id}
 					})
@@ -50,7 +50,7 @@ const projectsApi = createApi({
 			}),
 
 			removeProject: builder.mutation({
-				invalidatesTags:(result, error, {project}:ProjectApiEndpointArgs) => {
+				invalidatesTags:(_result, _error, {project}:ProjectApiEndpointArgs) => {
 					return [{type:'Project', id:project?._id}]
 				},
 				query:({user,project}:ProjectApiEndpointArgs) => {
@@ -65,7 +65,7 @@ const projectsApi = createApi({
 			}),
 
 			updateProject: builder.mutation({
-				invalidatesTags:(result, error, {project}:ProjectApiEndpointArgs) => {
+				invalidatesTags:(_result, _error, {project}:ProjectApiEndpointArgs) => {
 					return [{type:'Project', id:project?._id}]
 				},
 				query:({user,projectId, formData}:ProjectApiEndpointArgs) => {
