@@ -11,31 +11,32 @@ import { toggleAddProjectForm, useFetchProjectsQuery } from '../store';
 
 // Components
 import Project from './Project';
+import Skeleton from './Skeleton';
 
 // Types
 import { ProjectType } from '../types/project';
 
 const ProjectList = () => {
 	const { user } = useAuthContext();
-	const { data, isFetching, error } = useFetchProjectsQuery(user);
+	const { data, isLoading, error } = useFetchProjectsQuery(user);
 
 	const dispatch = useDispatch();
 
 	let content;
 
-	if(isFetching){
-	content = <div>Loading Projects . . .</div>
+	if(isLoading){
+		content = <Skeleton times={3} className="w-full h-[40px]"/>
 	}else if(error){
-	content = <div>Error loading Projects</div>
+		content = <div>Error loading Projects</div>
 	}else{
-	content = data.map((project:ProjectType) => {
-		return(
-			<Project 
-				key={project._id}
-				{...project}
-			/>
-		)
-	})
+		content = data.map((project:ProjectType) => {
+			return(
+				<Project 
+					key={project._id}
+					{...project}
+				/>
+			)
+		})
 	}
 
 	return (

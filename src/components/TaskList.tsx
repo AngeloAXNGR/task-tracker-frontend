@@ -13,6 +13,7 @@ import useAuthContext from "../hooks/useAuthContext"
 // Components
 import Task from "./Task"
 import Button from "./Button"
+import Skeleton from "./Skeleton"
 
 // Types
 import { TaskType } from "../types/task"
@@ -40,7 +41,7 @@ const TaskList = () => {
 	let content;
 
 	if(isLoading){
-		content = <div>Loading Tasks. . .</div>
+		content = <Skeleton times={3} className="w-[80%] h-[60px]"/>
 	}else{
 		content = data?.map((task:TaskType) => {
 			return(
@@ -50,6 +51,7 @@ const TaskList = () => {
 				/>
 			)
 		})
+		
 	}
 
 	return (
